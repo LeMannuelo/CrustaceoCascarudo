@@ -1,0 +1,135 @@
+@import url('https://fonts.googleapis.com/css2?family=Fredoka+One&display=swap');
+
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+.navbar {
+  display: flex;
+  justify-content: space-around;
+  align-items: center;
+  background-color: #0b2772; 
+  padding: 20px 30px;
+  font-family: 'Fredoka One', cursive;
+}
+
+.navbar-logo img {
+  height: 65px;
+  object-fit: contain;
+}
+
+.navbar-menu {
+  display: flex;
+  gap: 40px;
+}
+
+.menu-item {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  cursor: pointer;
+  color: #ffffff;
+  transition: transform 0.2s ease, color 0.2s ease;
+}
+
+.menu-item img {
+  width: 20px;
+  height: 20px;
+}
+
+.menu-item:hover {
+  color: #bb1e2d;
+  transform: scale(1.05);
+}
+
+.nav-login button {
+  background-color: #bb1e2d;
+  color: white;
+  border: none;
+  padding: 8px 16px;
+  border-radius: 6px;
+  font-family: inherit;
+  font-weight: 10;
+  cursor: pointer;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
+  transition: all 0.25s ease;
+}
+
+.nav-login button:hover {
+  background-color: #c25245;
+  transform: translateY(-2px);
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.3);
+}
+
+.nav-login {
+  display: flex;
+  align-items: center;
+  gap: 15px;
+}
+
+.nav-cart {
+  position: relative;
+  display: flex;
+  align-items: center;
+}
+
+.nav-cart img {
+  width: 26px;
+  height: 26px;
+  cursor: pointer;
+  transition: transform 0.2s ease;
+}
+
+.nav-cart img:hover {
+  transform: scale(1.1);
+}
+
+.nav-cart-count {
+  position: absolute;
+  top: -6px;
+  right: -6px;
+  width: 18px;
+  height: 18px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  border-radius: 50%;
+  font-size: 12px;
+  font-weight: bold;
+  color: #bb1e2d;
+  background-color: #ffffff;
+  border: 1px solid #bb1e2d;
+}
+
+.navbar-menu {
+  display: flex;
+  list-style: none;
+  gap: 40px;
+}
+
+.navbar-menu a {
+  text-decoration: none;
+  color: inherit;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.menu-item.active span {
+  color: #bb1e2d;
+}
+
+.menu-item.active img {
+  transform: scale(1.1);
+}
+
+.menu-item:hover {
+  transform: scale(1.05);
+}
+
+.navbar {
+  font-family: 'Fredoka One', cursive;
+  color: #ffffff; 
+}
