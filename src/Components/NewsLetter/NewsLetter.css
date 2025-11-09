@@ -9,6 +9,8 @@
   margin-bottom: 150px;
   padding: 40px 100px;
   text-align: center;
+
+  /* Fondo con imagen + overlay */
   background-size: cover;
   background-position: center;
   background-repeat: no-repeat;
@@ -34,16 +36,15 @@
 
 .newsletter h1 {
   font-size: 48px;
-  font-weight: 400;
+  font-weight: 700;
   color: white;
 }
 
 .newsletter p {
-  font-size: 18px;
+  font-size: 20px;
   color: #fff;
   opacity: 0.9;
   margin-bottom: 20px;
-  font-weight: 100;
 }
 
 .newsletter-input {
@@ -81,5 +82,5 @@
 }
 
 .newsletter-input button:hover {
-  background-color: #bb1e2d;
+  background-color: #f30000;
 }
