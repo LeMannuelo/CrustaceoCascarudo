@@ -7,13 +7,17 @@ import papas from "./papas.png"
 import malteada1 from "./malteada1.png"
 import malteada2 from "./malteada2.png"
 import malteada3 from "./malteada3.png"
+import perro from "./perro.png";
+import pizza from "./pizza.png";
+import ensalada from "./ensalada.png";
+import postre from "./postre.png";
 
 
 let all_products = [
     {
         id: 1,
         name: "cangri",
-        category: "hamburguesa",
+        category: "principal",
         image: cangri1,
         precio: 15.0,
     },
@@ -21,7 +25,7 @@ let all_products = [
     {
         id: 2,
         name: "cangri 2",
-        category: "hamburguesa",
+        category: "principal",
         image: cangri2,
         precio: 20.0,
     }, 
@@ -29,7 +33,7 @@ let all_products = [
     {
         id: 3,
         name: "cangri 3",
-        category: "hamburguesa",
+        category: "principal",
         image: cangri3,
         precio: 25.0,
     },
@@ -81,7 +85,34 @@ let all_products = [
         image: malteada3,
         precio: 5.0,
     },
-
+    {
+        id: 10,
+        name: "perro",
+        category: "principal",
+        image: perro,
+        precio: 14.5,
+    },
+    {
+        id: 11,
+        name: "pizza",
+        category: "principal",
+        image: pizza,
+        precio: 20.0,
+    },
+    {
+        id: 12,
+        name: "ensalada",
+        category: "acompañamiento",
+        image: ensalada,
+        precio: 6.0,
+    },
+    {
+        id: 13,
+        name: "postre",
+        category: "postres",
+        image: postre,
+        precio: 5.5,
+    },
 
 ];
 

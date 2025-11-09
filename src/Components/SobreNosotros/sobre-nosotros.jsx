@@ -8,50 +8,51 @@ const SobreNosotros = () => {
     <div className="nosotros-container">
       <h1 className="nosotros-titulo">NOSOTROS</h1>
 
-      <div className="nosotros-contenido">
+
+      <div className="nosotros-fila">
         <div className="nosotros-texto">
           <p>
-            Founded by the incomparable Eugene H. Krabs, the Krusty Krab is
-            more than just a restaurant—it’s a landmark built on quality,
-            value, and the freshest ingredients the sea has to offer. Since
-            opening our nautical doors, our mission has been simple: to
-            provide a memorable, mouthwatering meal at a price that keeps the
-            clams in your pocket.
+            Fundado por el incomparable Eugene H. Cangrejo, El Crustáceo Cascarudo es más que un 
+            simple restaurante: es un lugar emblemático construido sobre la calidad,
+            el valor y los ingredientes más frescos que el mar puede ofrecer.
+            Desde que abrimos nuestras náuticas puertas, nuestra misión ha sido sencilla: proporcionar una
+            comida memorable y deliciosa a un precio que mantenga tus almejas en el bolsillo.
           </p>
           <p>
-            We take immense pride in our legendary culinary masterpiece, the
-            Krabby Patty. This secret-recipe sensation has captivated taste
-            buds across the ocean and remains the only item you'll ever need
-            to order. Prepared with love and unparalleled dedication by our
-            world-famous fry cook, the Krabby Patty is guaranteed to satisfy
-            even the most demanding underwater appetite.
-          </p>
-          <p>
-            <strong>Address:</strong> 831 Bottom Feeder Lane, Downtown Bikini
-            Bottom, Pacific Ocean
-          </p>
-
-          <p>
-            <strong>Hours of Operation:</strong>
-            <br />
-            <strong>Monday - Saturday:</strong> 8:00 AM – 8:00 PM — Perfect for
-            breakfast, lunch, and early dinner.
-            <br />
-            <strong>Sunday:</strong> Closed, Mr. Krabs’ official day for
-            counting money and relaxing.
-            <br />
-            <strong>Holiday:</strong> Closed on all major holidays. Clams saved
-            are clams earned!
+            Estamos inmensamente orgullosos de nuestra legendaria
+            obra maestra culinaria, la Cangreburguer. Esta sensación 
+            de receta secreta ha cautivado paladares por todo el océano 
+            y sigue siendo el único artículo que necesitarás pedir.
+            Preparada con amor y una dedicación inigualable por nuestro
+            mundialmente famoso cocinero, ¡la Cangreburguer está 
+            garantizada para satisfacer incluso el apetito submarino 
+            más exigente!
           </p>
         </div>
 
-        <div className="nosotros-mapa">
-          <img src={mapa} alt="Mapa del Crustáceo Cascarudo" />
+        <div className="nosotros-imagen">
+          <img src={crustaceo} alt="Mapa del Crustáceo Cascarudo" />
         </div>
       </div>
 
-      <div className="nosotros-imagen-inferior">
-        <img src={crustaceo} alt="El Crustáceo Cascarudo" />
+      {/* Segunda fila: imagen + texto */}
+      <div className="nosotros-fila invertida">
+        <div className="nosotros-imagen">
+          <img src={mapa} alt="El Crustáceo Cascarudo" />
+        </div>
+
+        <div className="nosotros-texto">
+          <p>
+            <strong>Dirección:</strong> 831 Bottom Feeder Lane, Centro de Fondo de Bikini, Océano Pacífico
+          </p>
+
+          <p>
+            <strong>Horario de Funcionamiento:</strong><br />
+            <strong>Lunes - Sábado:</strong> 8:00 AM – 8:00 PM — Perfecto para desayuno, almuerzo y cena temprana.<br />
+            <strong>Domingo:</strong> Cerrado, el día oficial del Sr. Cangrejo para contar dinero y relajarse.<br />
+            <strong>Días Festivos:</strong> Cerrado en todos los días festivos principales. ¡Almejas ahorradas son almejas ganadas!
+          </p>
+        </div>
       </div>
     </div>
   );
