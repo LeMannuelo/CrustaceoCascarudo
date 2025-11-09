@@ -7,8 +7,8 @@ import Ordenar from './Pages/Ordenar';
 import Cart from './Pages/Cart';
 import Login from './Pages/Login';
 import Footer from './Components/Footer/Footer';
-import SobreNosotros from "./Pages/sobre-nosotros"
-import PreguntasFrecuentes from "./Pages/preguntas-frecuentes"
+import SobreNosotros from "./Components/SobreNosotros/sobre-nosotros"
+import PreguntasFrecuentes from "./Components/PreguntasFrecuentes/preguntas-frecuentes"
 
 
 function App() {
@@ -21,8 +21,8 @@ function App() {
         <Route path="/ordenar" element={<Ordenar />} />
         <Route path="/cart" element={<Cart />} />
         <Route path="/login" element={<Login />} />
-        <Route path="/sobrenosotros" element={<SobreNosotros />} />
-        <Route path="/preguntasfrecuentes" element={<PreguntasFrecuentes />} />
+        <Route path="/sobre-nosotros" element={<SobreNosotros />} />
+        <Route path="/preguntas-frecuentes" element={<PreguntasFrecuentes />} />
       </Routes>
       <Footer/>
     </BrowserRouter>
