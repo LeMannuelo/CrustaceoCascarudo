@@ -1,112 +1,57 @@
-.hero {
+.hero{
+  height: 80vh;
+  background-image: url("../Assets/wp3.png");
+  background-size: cover;  
+  background-position: center;  
+  background-repeat: no-repeat; 
+  display: flex;
+  display: flex;
+}
+.hero-left{
+  flex: 1;
   display: flex;
   flex-direction: column;
+  justify-content: center;
+  gap: 20px;
+  padding-left: 180px;
+  list-style: 1.1;
+}
+.hero-left h2{
+  font-size: 26px;
+  color: #000000;
+  font-weight: 600;
+}
+.hero-left p{
+  font-size: 100px;
+  color: #000000;
+  font-weight: 700;
+}
+.hero-medusa-icon{
+  display: flex;
+  align-items: center;
+  gap: 20px;
+}
+.hero-medusa-icon img{
+  width: 50px;
+  height: 60px;
+}
+.hero-latest-btn{
+  display: flex;
   align-items: center;
   justify-content: center;
-  text-align: center;
-  min-height: 90vh;
-  background: linear-gradient(to bottom right, #fff6e0, #ffe5b4);
-  padding: 4rem 2rem;
-  font-family: 'Poppins', sans-serif;
-}
-
-.hero h1 {
-  font-size: 3rem;
-  color: #2b1b08;
-  margin-bottom: 0.5rem;
-  font-weight: 700;
-}
-
-.hero p {
-  font-size: 1.2rem;
-  color: #5c3d1e;
-  margin-bottom: 3rem;
-}
-
-.hero-burgers {
-  display: grid;
-  grid-template-columns: repeat(3, 1fr);
-  gap: 2rem;
-  max-width: 1200px;
-  width: 100%;
-}
-
-.burger-card {
-  background-color: #ffffff;
-  border-radius: 20px;
-  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
-  transition: transform 0.3s ease, box-shadow 0.3s ease;
-  cursor: pointer;
-  padding: 1.5rem;
-}
-
-.burger-card:hover {
-  transform: translateY(-8px);
-  box-shadow: 0 6px 20px rgba(0, 0, 0, 0.2);
-}
-
-.burger-card img {
-  width: 100%;
-  height: 260px;
-  border-radius: 15px;
-  margin-bottom: 1rem;
-}
-
-.burger-card h3 {
-  color: #2b1b08;
-  font-weight: 600;
-  font-size: 1.1rem;
-}
-
-.hero button {
-  background-color: #ff3300;
+  gap: 15px;
+  width: 310px;
+  height: 70px;
+  border-radius: 75px;
+  margin-top: 30px;
+  background: #bb1e2d;
   color: white;
-  border: none;
-  border-radius: 30px;
-  padding: 0.9rem 2rem;
-  font-size: 1.1rem;
-  margin-top: 3rem;
-  cursor: pointer;
-  transition: background-color 0.3s ease, transform 0.2s ease;
+  font-size: 22px;
+  font-weight: 500;
 }
-
-.hero button:hover {
-  background-color: #e05b00;
-  transform: scale(1.05);
-}
-
-.hero-subtitle {
-  text-align: center;
-  font-size: 1.8rem;
-  margin: 2rem 0 1rem 0;
-  color: #2b1b08;
-  font-weight: bold;
-}
-.hero-header {
+.hero-right{
+  flex: 1;
   display: flex;
-  justify-content: space-between; 
+  justify-content: center;
   align-items: center;
-  width: 90%;
-  max-width: 1200px;
-  margin: 2rem auto 1rem auto; 
-  padding: 0 1rem;
-  box-sizing: border-box;
-}
-.hero-subtitle {
-  font-size: 1.6rem;
-  font-weight: 700;
-  color: #2b1b08;
-  margin: 0;
-}
-
-.hero-view-all {
-  color: #e53935; 
-  font-weight: 600;
-  text-decoration: none;
-  font-size: 1rem;
-  transition: color 0.3s ease, transform 0.2s ease;
-}
-.hero-view-all:hover {
-  color: #b71c1c;
-  transform: translateX(2px);
 }
