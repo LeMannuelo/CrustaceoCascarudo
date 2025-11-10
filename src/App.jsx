@@ -9,7 +9,7 @@ import Login from './Components/Login/Login';
 import Footer from './Components/Footer/Footer';
 import SobreNosotros from "./Components/SobreNosotros/sobre-nosotros"
 import PreguntasFrecuentes from "./Components/PreguntasFrecuentes/preguntas-frecuentes"
-
+import Ingresar from "./Components/Ingresar/ingresar"
 
 function App() {
   return (
@@ -23,6 +23,7 @@ function App() {
         <Route path="/login" element={<Login />} />
         <Route path="/sobre-nosotros" element={<SobreNosotros />} />
         <Route path="/preguntas-frecuentes" element={<PreguntasFrecuentes />} />
+        <Route path="/ingresar" element={<Ingresar />} />
       </Routes>
       <Footer/>
     </BrowserRouter>

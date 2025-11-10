@@ -9,17 +9,17 @@ const Hero = () => {
   return (
     <div className="hero">
       <div className="hero-left">
-        <h2>LOREM IPSUM ONLY</h2>
+        <h2>EL COCINERO MÁS RAPIDO...</h2>
         <div>
           <div className="hero-medusa-icon">
-            <p>new</p>
+            <p>De todo el fondo del mar!</p>
             <img src={medusa} alt="" />
           </div>
-          <p>lorem</p>
-          <p>lorem ipsum</p>
+          <p></p>
+          <p>Bob Esponja al servicio.</p>
         </div>
         <div className='hero-latest-btn'>
-          <div>Latest Lorem</div>
+          <div>Ver nuestro menú</div>
           <img src={arrow} alt="" />
         </div>
       </div>
