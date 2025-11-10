@@ -1,0 +1,61 @@
+.breadcrum {
+  display: flex;
+  align-items: center;
+  flex-wrap: wrap;
+  justify-content: flex-start;
+  gap: 10px;
+  margin: 40px auto;
+  padding: 12px 24px;
+  width: fit-content;
+  border-radius: 30px;
+  background: rgba(255, 255, 255, 0.25);
+  backdrop-filter: blur(8px);
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+  font-family: 'Fredoka One', cursive;
+  transition: 0.3s ease;
+}
+
+.crumb-link {
+  color: #222;
+  font-size: 16px;
+  font-weight: 500;
+  cursor: pointer;
+  transition: color 0.2s ease;
+}
+
+.crumb-link:hover {
+  color: #bb1e2d;
+}
+
+.crumb-category {
+  color: #444;
+  font-weight: 600;
+}
+
+.crumb-current {
+  color: #bb1e2d;
+  font-weight: 700;
+  text-shadow: 0 0 5px rgba(187, 30, 45, 0.2);
+}
+
+.crumb-arrow {
+  width: 14px;
+  height: 14px;
+  opacity: 0.6;
+}
+
+.breadcrum:hover {
+  background: rgba(255, 255, 255, 0.35);
+  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.12);
+}
+
+@media (max-width: 768px) {
+  .breadcrum {
+    font-size: 14px;
+    padding: 10px 18px;
+  }
+  .crumb-arrow {
+    width: 12px;
+    height: 12px;
+  }
+}

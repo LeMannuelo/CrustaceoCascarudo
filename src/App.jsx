@@ -10,6 +10,9 @@ import Footer from './Components/Footer/Footer';
 import SobreNosotros from "./Components/SobreNosotros/sobre-nosotros"
 import PreguntasFrecuentes from "./Components/PreguntasFrecuentes/preguntas-frecuentes"
 import Ingresar from "./Components/Ingresar/ingresar"
+import MenuCategory from './Pages/MenuCategory';
+import Product from './Pages/Product';
+
 
 function App() {
   return (
@@ -17,7 +20,8 @@ function App() {
       <Navbar />
       <Routes>
         <Route path="/" element={<Inicio />} />
-        <Route path="/menu" element={<Menu />} />
+        <Route path="/menu" element={<MenuCategory />} />
+        <Route path="/product/:productId" element={<Product />} />
         <Route path="/ordenar" element={<Ordenar />} />
         <Route path="/cart" element={<Cart />} />
         <Route path="/login" element={<Login />} />
