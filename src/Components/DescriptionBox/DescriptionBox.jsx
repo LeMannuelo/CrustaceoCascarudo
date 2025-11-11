@@ -5,12 +5,21 @@ const DescriptionBox = () => {
   return (
     <div className='descriptionbox'>
       <div className="descriptionbox-navigator">
-        <div className="descriptionbox-nav-box">Description</div>
-        <div className="descriptionbox-nav-box fade">Reviews (12)</div>
+        <div className="descriptionbox-nav-box">Reseña del crítico</div>
+        <div className="descriptionbox-nav-box fade">Reseñas (12)</div>
       </div>
+
       <div className="descriptionbox-description">
-        <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nunc iaculis rutrum hendrerit. Phasellus ut leo urna. Donec in ex eget tellus cursus laoreet. Nam sollicitudin accumsan justo nec elementum. Mauris massa ipsum, mattis eu ante et, elementum accumsan sapien. Morbi dolor ipsum, sagittis ut vehicula at, convallis id massa. Phasellus viverra ullamcorper semper. Aenean sodales tortor odio, at imperdiet tellus cursus at. Donec in urna imperdiet, gravida sem sit amet, commodo metus. Vivamus malesuada, nisl vel laoreet pharetra, risus purus congue dui, vel aliquam mauris risus vitae libero. Nam a blandit ipsum.</p>
-        <p>Integer at nulla eget erat cursus imperdiet. Ut mi tellus, gravida non interdum nec, pellentesque at dolor. Pellentesque et maximus nibh. Mauris a augue at purus dignissim iaculis.</p>
+        <p>
+          En el fondo del océano, el Crustáceo Cascarudo se alza como un refugio para los amantes del buen sabor. 
+          Su plato estrella, la <em>Cangreburger</em>, combina una textura perfecta con ese inconfundible aroma a felicidad recién cocinada. 
+          Es evidente que cada receta es tratada con el mismo cuidado con que Bob Esponja limpia su espátula.
+        </p>
+        <p>
+          El ambiente es cálido, familiar y lleno de burbujas; un lugar donde los sabores se mezclan con la alegría del servicio. 
+          Sin duda, un rincón marino que logra que incluso los más exigentes bajen la guardia y sonrían. Recomiendo cada uno de sus platillos, cada uno es una joya culinaria con pasión submarina. 
+        </p>
+        <p>— Róbalo Burbuja, Crítico Gastronómico</p>
       </div>
     </div>
   )

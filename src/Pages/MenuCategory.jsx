@@ -1,53 +1,44 @@
-import React, { useContext, useState } from 'react';
+import React, { useContext, useEffect, useState } from 'react';
 import './CSS/MenuCategory.css';
 import { ShopContext } from '../Context/ShopContext';
 import Item from '../Components/Item/Item';
+import { useSearchParams, useNavigate } from 'react-router-dom';
 
 const MenuCategory = () => {
   const { all_products } = useContext(ShopContext);
-  const [selectedCategory, setSelectedCategory] = useState('todos');
+  const [searchParams, setSearchParams] = useSearchParams();
+  const navigate = useNavigate();
 
-  // Filtrado por categoría
+  const categoryFromURL = searchParams.get('category') || 'todos';
+  const [selectedCategory, setSelectedCategory] = useState(categoryFromURL);
+
+  useEffect(() => {
+    setSelectedCategory(categoryFromURL);
+  }, [categoryFromURL]);
+
   const filteredProducts =
     selectedCategory === 'todos'
       ? all_products
       : all_products.filter((item) => item.category === selectedCategory);
 
+  const handleCategoryChange = (category) => {
+    setSelectedCategory(category);
+    setSearchParams(category === 'todos' ? {} : { category });
+    navigate(category === 'todos' ? '/menu' : `/menu?category=${category}`);
+  };
+
   return (
     <div className="menu-category">
-      <h1></h1>
-
       <div className="menu-filters">
-        <button
-          className={selectedCategory === 'todos' ? 'active' : ''}
-          onClick={() => setSelectedCategory('todos')}
-        >
-          Todos
-        </button>
-        <button
-          className={selectedCategory === 'principal' ? 'active' : ''}
-          onClick={() => setSelectedCategory('principal')}
-        >
-          Principales
-        </button>
-        <button
-          className={selectedCategory === 'acompañamientos' ? 'active' : ''}
-          onClick={() => setSelectedCategory('acompañamientos')}
-        >
-          Acompañamientos
-        </button>
-        <button
-          className={selectedCategory === 'malteadas' ? 'active' : ''}
-          onClick={() => setSelectedCategory('malteadas')}
-        >
-          Malteadas
-        </button>
-        <button
-          className={selectedCategory === 'postres' ? 'active' : ''}
-          onClick={() => setSelectedCategory('postres')}
-        >
-          Postres
-        </button>
+        {['todos', 'principal', 'acompañamientos', 'bebidas', 'postres'].map((cat) => (
+          <button
+            key={cat}
+            className={selectedCategory === cat ? 'active' : ''}
+            onClick={() => handleCategoryChange(cat)}
+          >
+            {cat.charAt(0).toUpperCase() + cat.slice(1)}
+          </button>
+        ))}
       </div>
 
       <p className="menu-count">

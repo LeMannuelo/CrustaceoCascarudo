@@ -1,0 +1,99 @@
+.faq-container {
+  min-height: 100vh;
+  padding: 80px 20px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 70px;
+  background-color: #fff;
+  font-family: 'Fredoka One', cursive;
+}
+
+.faq-item {
+  width: 75%;
+  padding: 50px 60px;
+  text-align: center;
+  border-radius: 30px;
+  box-shadow: 0 10px 25px rgba(0, 0, 0, 0.15);
+  position: relative;
+  overflow: hidden;
+  background-size: cover;
+  background-position: center;
+  background-repeat: no-repeat;
+  color: #fff;
+}
+
+.faq-item:nth-child(1) {
+  background-image: url('../Assets/night.jpg'), linear-gradient(120deg, #004e92, #000428);
+}
+
+.faq-item:nth-child(2) {
+  background-image: url('../Assets/wp2.jpg'), linear-gradient(120deg, #007991, #78ffd6);
+}
+
+.faq-item::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background: rgba(0, 0, 0, 0.25);
+  z-index: 0;
+}
+
+.faq-pregunta,
+.faq-texto,
+.faq-video {
+  position: relative;
+  z-index: 1;
+}
+
+.faq-pregunta {
+  font-size: 42px;
+  font-weight: 400;
+  margin-bottom: 20px;
+  color: #bb1e2d;
+}
+
+.faq-texto {
+  font-size: 18px;
+  line-height: 1.8;
+  max-width: 800px;
+  margin: 0 auto;
+  font-weight: 300;
+  color: #ffffff;
+}
+
+.faq-video {
+  margin: 25px auto 0;  /* centra horizontalmente */
+  width: 80%;
+  max-width: 700px;
+  aspect-ratio: 16 / 9;
+  border-radius: 15px;
+  overflow: hidden;
+  border: 4px solid #d4a017;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+
+.faq-video iframe {
+  width: 100%;
+  height: 100%;
+  border: none;
+}
+
+
+@media (max-width: 768px) {
+  .faq-item {
+    width: 90%;
+    padding: 40px 30px;
+  }
+
+  .faq-pregunta {
+    font-size: 28px;
+  }
+
+  .faq-texto {
+    font-size: 16px;
+  }
+}

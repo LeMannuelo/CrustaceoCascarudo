@@ -23,7 +23,7 @@ const ProductDisplay = ({ product }) => {
           <img src={star_icon} alt="estrella" />
           <img src={star_icon} alt="estrella" />
           <img src={starr_dull_icon} alt="estrella vacía" />
-          <p>(122 reseñas)</p>
+          <p>(12 reseñas)</p>
         </div>
 
         <div className="productdisplay-price">
@@ -33,9 +33,7 @@ const ProductDisplay = ({ product }) => {
 
         <div className="productdisplay-description">
           <p>
-            La especialidad de la casa: una receta secreta que ha conquistado
-            los corazones de Fondo de Bikini. Preparada con ingredientes frescos
-            y el inconfundible toque del Crustáceo Cascarudo.
+            {product.description}
           </p>
         </div>
 

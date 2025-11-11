@@ -9,7 +9,7 @@ const Hero = () => {
   return (
     <div className="hero">
       <div className="hero-left">
-        <h2>EL COCINERO MÁS RAPIDO...</h2>
+        <h2>¡EL COCINERO MÁS RAPIDO...</h2>
         <div>
           <div className="hero-medusa-icon">
             <p>De todo el fondo del mar!</p>
@@ -19,8 +19,10 @@ const Hero = () => {
           <p>Bob Esponja al servicio.</p>
         </div>
         <div className='hero-latest-btn'>
-          <div>Ver nuestro menú</div>
+          <Link to="/menu" className="hero-latest-link">
+          Visita nuestro menú
           <img src={arrow} alt="" />
+          </Link>
         </div>
       </div>
       <div className="hero-right">

@@ -24,10 +24,6 @@ const Navbar = () => {
           <img src={menu} alt="icono menú" />
           <span>Menú</span>
         </Link>
-        <Link to="/ordenar" className="menu-item">
-          <img src={ordenar} alt="icono ordenar" />
-          <span>Ordenar</span>
-        </Link>
       </div>
 
       <div className="nav-login">

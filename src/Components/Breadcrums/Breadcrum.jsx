@@ -8,14 +8,13 @@ const Breadcrum = ({ product }) => {
 
   return (
     <div className="breadcrum">
-      <Link to="/" className="crumb-link">Inicio</Link>
-      <img src={arrow_icon} alt="→" className="crumb-arrow" />
-
-      <Link to="/menu" className="crumb-link">Menú</Link>
+      <Link to="/menu?category=todos" className="crumb-link">
+        Todos
+      </Link>
       <img src={arrow_icon} alt="→" className="crumb-arrow" />
 
       <Link to={`/menu?category=${product.category}`} className="crumb-link">
-        {product.category}
+        {product.category.charAt(0).toUpperCase() + product.category.slice(1)}
       </Link>
       <img src={arrow_icon} alt="→" className="crumb-arrow" />
 

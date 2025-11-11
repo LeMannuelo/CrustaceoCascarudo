@@ -12,11 +12,13 @@ import PreguntasFrecuentes from "./Components/PreguntasFrecuentes/preguntas-frec
 import Ingresar from "./Components/Ingresar/ingresar"
 import MenuCategory from './Pages/MenuCategory';
 import Product from './Pages/Product';
+import ScrollToTop from './Components/ScrollToTop';
 
 
 function App() {
   return (
     <BrowserRouter>
+    <ScrollToTop />
       <Navbar />
       <Routes>
         <Route path="/" element={<Inicio />} />
