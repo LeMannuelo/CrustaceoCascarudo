@@ -8,7 +8,6 @@
   flex-wrap: wrap;
 }
 
-/* Imagen principal */
 .productdisplay-main-img {
   width: 520px;
   height: auto;
@@ -21,7 +20,6 @@
   transform: scale(1.02);
 }
 
-/* Panel derecho */
 .productdisplay-right {
   display: flex;
   flex-direction: column;
@@ -61,14 +59,12 @@
   font-size: 28px;
 }
 
-/* Descripción */
 .productdisplay-description p {
   font-size: 17px;
   color: #333;
   line-height: 1.6;
 }
 
-/* Pequeño detalle divertido */
 .productdisplay-detail {
   margin-top: 10px;
 }
@@ -83,7 +79,6 @@
   border-radius: 6px;
 }
 
-/* Botón */
 .add-to-cart-btn {
   margin-top: 20px;
   padding: 14px 28px;
@@ -101,7 +96,6 @@
   background: #a11621;
 }
 
-/* Responsive */
 @media (max-width: 768px) {
   .productdisplay {
     flex-direction: column;

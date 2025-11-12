@@ -2,8 +2,8 @@
 :root {
   --azul-marino: #0b2772;
   --azul-claro: #2647a4;
-  --amarillo: #f4b400;
-  --amarillo-claro: #f0da9a;
+  --amarillo: #bb1e2d;
+  --amarillo-claro: #dc3849;
   --gris: #e2e2e2;
   --blanco: #fefdfb;
   --fondo: linear-gradient(to bottom right, #fff9e6, #eaf4ff);
@@ -13,7 +13,7 @@
   margin: 80px 160px;
   padding: 40px;
   background: var(--fondo);
-  border: 2px solid rgba(0, 0, 0, 0.05); /* borde suave y discreto */
+  border: 2px solid rgba(0, 0, 0, 0.05);
   border-radius: 20px;
   box-shadow: 0 8px 25px rgba(0, 0, 0, 0.08);
   font-family: "Poppins", sans-serif;
@@ -129,7 +129,7 @@
   border: none;
   border-radius: 10px;
   background: var(--amarillo);
-  color: var(--azul-marino);
+  color: white;
   font-size: 17px;
   font-weight: 700;
   cursor: pointer;
@@ -176,7 +176,7 @@
 
 .cartitems-promobox input:focus {
   border-color: var(--amarillo);
-  background: #fff8e1;
+  background: #f7fcff;
 }
 
 .cartitems-promobox button {

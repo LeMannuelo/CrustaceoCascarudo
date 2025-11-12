@@ -28,6 +28,10 @@ const Navbar = () => {
           <img src={menu} alt="icono menú" />
           <span>Menú</span>
         </Link>
+        <Link to="/mispedidos" className="menu-item">
+          <img src={ordenar} alt="icono ordenar" />
+          <span>Mis Pedidos</span>
+        </Link>
       </div>
 
       <div className="nav-login">
