@@ -9,4 +9,5 @@ Simula una tienda en línea de pedidos de comida, con funcionalidades de carrito
    ```bash
    npm install
 2. Ejecutar el servidor de desarrollo
+   ```bash
    npm run dev
