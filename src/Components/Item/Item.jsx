@@ -13,12 +13,17 @@ const Item = (props) => {
 
   return (
     <div className="item">
-      <Link to={linkTo}>
+      {/* La imagen va arriba, ocupando todo el ancho */}
+      <Link to={linkTo} className="item-img-container">
         <img src={props.image} alt={props.name} />
       </Link>
-      <p>{props.name}</p>
-      <div className="item-prices">
-        <div className='item-price-new'>${props.new_price}</div>
+      
+      {/* Envolvemos el texto para darle padding separado */}
+      <div className="item-details">
+        <p>{props.name}</p>
+        <div className="item-prices">
+          <div className='item-price-new'>${props.new_price}</div>
+        </div>
       </div>
     </div>
   );

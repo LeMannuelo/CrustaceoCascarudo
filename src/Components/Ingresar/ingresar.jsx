@@ -80,7 +80,7 @@ const Ingresar = () => {
 
         <p className="ingresar-ingresar">
           ¿No tienes una cuenta?
-          <Link to="/login" className="ingresar-link"> Crea una aquí</Link>
+          <Link to="/signup" className="ingresar-link"> Crea una aquí</Link>
         </p>
 
         <div className="ingresar-agree">

@@ -5,7 +5,7 @@ import { BrowserRouter, Routes, Route } from 'react-router-dom';
 import Inicio from './Pages/Inicio';
 import MisPedidos from './Pages/MisPedidos';
 import Cart from './Pages/Cart';
-import Login from './Components/Login/Login';
+import Signup from './Components/Signup/Signup';
 import Footer from './Components/Footer/Footer';
 import SobreNosotros from "./Components/SobreNosotros/sobre-nosotros"
 import PreguntasFrecuentes from "./Components/PreguntasFrecuentes/preguntas-frecuentes"
@@ -33,7 +33,7 @@ function App() {
         <Route path="/product/:productId" element={<Product />} />
         <Route path="/mispedidos" element={<MisPedidos />} />
         <Route path="/cart" element={<Cart />} />
-        <Route path="/login" element={<Login />} />
+        <Route path="/signup" element={<Signup />} />
         <Route path="/sobre-nosotros" element={<SobreNosotros />} />
         <Route path="/preguntas-frecuentes" element={<PreguntasFrecuentes />} />
         <Route path="/ingresar" element={<Ingresar />} />

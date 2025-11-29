@@ -6,23 +6,30 @@
   box-sizing: border-box;
 }
 
+/* --- ESTILOS GENERALES (ESCRITORIO) --- */
 .navbar {
   display: flex;
-  justify-content: space-around;
+  justify-content: space-between; /* Logo izq, Menu centro, Login der */
   align-items: center;
-  background-color: #0b2772; 
-  padding: 20px 30px;
+  background-color: #0b2772; /* Tu color Azul original */
+  padding: 15px 5%;
   font-family: 'Fredoka One', cursive;
+  position: sticky;
+  top: 0;
+  z-index: 1000;
+  box-shadow: 0 4px 10px rgba(0,0,0,0.2);
 }
 
 .navbar-logo img {
-  height: 65px;
+  height: 60px;
   object-fit: contain;
 }
 
+/* Contenedor de los links */
 .navbar-menu {
   display: flex;
   gap: 40px;
+  align-items: center;
 }
 
 .menu-item {
@@ -30,13 +37,15 @@
   align-items: center;
   gap: 8px;
   cursor: pointer;
-  color: #ffffff;
+  color: #ffffff; /* Texto blanco original */
+  text-decoration: none;
+  font-size: 18px;
   transition: transform 0.2s ease, color 0.2s ease;
 }
 
 .menu-item img {
-  width: 20px;
-  height: 20px;
+  width: 24px;
+  height: 24px;
 }
 
 .menu-item:hover {
@@ -44,29 +53,28 @@
   transform: scale(1.05);
 }
 
+.nav-login {
+  display: flex;
+  align-items: center;
+  gap: 15px;
+}
+
 .nav-login button {
   background-color: #bb1e2d;
   color: white;
   border: none;
-  padding: 8px 16px;
-  border-radius: 6px;
+  padding: 8px 20px;
+  border-radius: 50px;
   font-family: inherit;
-  font-weight: 10;
+  font-size: 16px;
   cursor: pointer;
   box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
   transition: all 0.25s ease;
 }
 
 .nav-login button:hover {
-  background-color: #c25245;
+  background-color: #d92536;
   transform: translateY(-2px);
-  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.3);
-}
-
-.nav-login {
-  display: flex;
-  align-items: center;
-  gap: 15px;
 }
 
 .nav-cart {
@@ -76,8 +84,8 @@
 }
 
 .nav-cart img {
-  width: 26px;
-  height: 26px;
+  width: 30px;
+  height: 30px;
   cursor: pointer;
   transition: transform 0.2s ease;
 }
@@ -88,48 +96,77 @@
 
 .nav-cart-count {
   position: absolute;
-  top: -6px;
-  right: -6px;
-  width: 18px;
-  height: 18px;
+  top: -8px;
+  right: -8px;
+  width: 20px;
+  height: 20px;
   display: flex;
   justify-content: center;
   align-items: center;
   border-radius: 50%;
-  font-size: 12px;
+  font-size: 11px;
   font-weight: bold;
   color: #bb1e2d;
   background-color: #ffffff;
-  border: 1px solid #bb1e2d;
+  border: 2px solid #bb1e2d;
 }
 
-.navbar-menu {
-  display: flex;
-  list-style: none;
-  gap: 40px;
-}
 
-.navbar-menu a {
-  text-decoration: none;
-  color: inherit;
-  display: flex;
-  align-items: center;
-  gap: 8px;
-}
+@media (max-width: 768px) {
 
-.menu-item.active span {
-  color: #bb1e2d;
-}
+  .navbar {
+    padding: 10px 20px;
+    height: 70px;
+    justify-content: space-between; 
+      border-bottom: 2px solid #bb1e2d; 
+  }
 
-.menu-item.active img {
-  transform: scale(1.1);
-}
+  .navbar-logo img {
+    height: 45px; 
+  }
 
-.menu-item:hover {
-  transform: scale(1.05);
-}
+  .nav-login button {
+    padding: 6px 12px;
+    font-size: 14px; 
+  }
 
-.navbar {
-  font-family: 'Fredoka One', cursive;
-  color: #ffffff; 
+  .nav-login {
+    gap: 10px;
+  }
+
+  .navbar-menu {
+    position: fixed;
+    bottom: 0;
+    left: 0;
+    width: 100%;
+    height: 70px;
+    background-color: #0b2772; 
+    display: flex;
+    justify-content: space-around; 
+    align-items: center;
+    padding: 0 10px;
+    box-shadow: 0 -4px 10px rgba(0,0,0,0.2);
+      border-top: 2px solid #bb1e2d; 
+    z-index: 1000;
+  }
+
+  .menu-item {
+    flex-direction: column; 
+    gap: 5px;
+    font-size: 12px;
+  }
+
+  .menu-item img {
+    width: 24px;
+    height: 24px;
+  }
+  
+
+  .menu-item.active {
+      color: #bb1e2d; 
+      font-weight: bold;
+  }
+  .menu-item.active img {
+      transform: scale(1.1);
+  }
 }
