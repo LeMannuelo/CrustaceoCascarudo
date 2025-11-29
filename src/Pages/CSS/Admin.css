@@ -1,0 +1,60 @@
+.admin-panel {
+  padding: 60px;
+  font-family: "Poppins", sans-serif;
+  max-width: 1200px;
+  margin: 0 auto;
+}
+
+.admin-panel h1 {
+  text-align: center;
+  font-size: 48px;
+  color: #0b2772;
+  margin-bottom: 40px;
+  font-weight: 800;
+}
+
+.admin-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+  gap: 30px;
+}
+
+.admin-card {
+  background: #fff;
+  padding: 28px;
+  border-radius: 18px;
+  box-shadow: 0 5px 15px rgba(11, 39, 114, 0.1);
+  border-left: 6px solid #bb1e2d;
+  transition: transform 0.25s ease;
+}
+
+.admin-card:hover {
+  transform: translateY(-4px);
+}
+
+.admin-card h2 {
+  color: #bb1e2d;
+  margin-bottom: 12px;
+  font-size: 24px;
+}
+
+.admin-card p {
+  color: #444;
+  margin-bottom: 20px;
+  line-height: 1.5;
+}
+
+.admin-card button {
+  background: #0b2772;
+  border: none;
+  color: #fff;
+  padding: 10px 18px;
+  border-radius: 8px;
+  font-weight: 600;
+  cursor: pointer;
+  transition: background 0.25s;
+}
+
+.admin-card button:hover {
+  background: #2647a4;
+}

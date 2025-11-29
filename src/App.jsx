@@ -12,6 +12,7 @@ import PreguntasFrecuentes from "./Components/PreguntasFrecuentes/preguntas-frec
 import Ingresar from "./Components/Ingresar/ingresar"
 import MenuCategory from './Pages/MenuCategory';
 import Product from './Pages/Product';
+import Admin from "./Pages/Admin";
 import ScrollToTop from './Components/ScrollToTop';
 
 
@@ -26,6 +27,7 @@ function App() {
     <ScrollToTop />
       <Navbar />
       <Routes>
+        <Route path="/admin" element={<Admin />} />
         <Route path="/" element={<Inicio />} />
         <Route path="/menu" element={<MenuCategory />} />
         <Route path="/product/:productId" element={<Product />} />
