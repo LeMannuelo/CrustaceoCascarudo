@@ -20,40 +20,40 @@
   flex-direction: column;
   justify-content: center;
   gap: 20px;
- 
   min-width: 280px; 
-  max-width: 650px; 
+  max-width: 850px; 
 }
 
 .hero-left h2 {
-  font-size: 26px;
   color: #000;
   font-weight: 600;
   text-transform: uppercase;
+  font-size: clamp(22px, 3vw, 48px);
 }
 
 .hero-left p {
-  font-size: clamp(32px, 5vw, 58px);
   color: #000;
   font-weight: 700;
-  line-height: 1.2;
+  line-height: 1.1; 
+  font-size: clamp(40px, 7vw, 95px);
 }
 
 .hero-medusa-icon {
   display: flex;
   align-items: center;
   gap: 15px;
-  flex-wrap: wrap; 
+  flex-wrap: wrap;
 }
 
 .hero-medusa-icon p {
-
-  font-size: 24px; 
+  font-size: clamp(20px, 2.5vw, 32px); 
   font-weight: 600;
+  margin: 0; 
 }
 
 .hero-medusa-icon img {
-  width: 45px;
+
+  width: clamp(45px, 5vw, 70px);
   height: auto;
 }
 
@@ -93,7 +93,7 @@
 
 .hero-right img {
   width: 100%;
-  max-width: 310px; 
+  max-width: 270px; 
   height: auto;
   object-fit: contain;
   margin-left: auto;
@@ -155,5 +155,11 @@
   
   .hero-left p {
     font-size: 28px;
+  }
+}
+
+@media (min-width: 1025px) {
+  .hero-right img {
+    transform: translateX(-100px); 
   }
 }
