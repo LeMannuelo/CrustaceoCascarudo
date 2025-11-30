@@ -6,7 +6,8 @@ import { useNavigate } from "react-router-dom";
 const Modal = ({ isOpen, onClose, cartItems, all_products, clearCart }) => {
   const { getTotalCartAmount } = useContext(ShopContext);
   const [address, setAddress] = useState("");
-  const [paymentMethod, setPaymentMethod] = useState("efectivo")
+  const [paymentMethod, setPaymentMethod] = useState("efectivo");
+  const [loading, setLoading] = useState(false);
   const navigate = useNavigate();
 
   if (!isOpen) return null;
@@ -15,39 +16,81 @@ const Modal = ({ isOpen, onClose, cartItems, all_products, clearCart }) => {
   const shipping = 4;
   const total = subtotal + shipping;
 
-  const handleConfirm = () => {
+  const handleConfirm = async () => {
     if (!address) {
       alert("Por favor ingresa una dirección de entrega");
       return;
     }
 
+    // Obtener datos del usuario autenticado
+    const usuarioData = localStorage.getItem("usuario");
+    const token = localStorage.getItem("token");
+
+    if (!usuarioData || !token) {
+      alert("Debes iniciar sesión para realizar un pedido");
+      navigate("/ingresar");
+      return;
+    }
+
+    const usuario = JSON.parse(usuarioData);
+
+    // Preparar productos del pedido
     const productos = all_products
       .filter((p) => cartItems[p.id] > 0)
       .map((p) => ({
+        producto_id: p.id,
         name: p.name,
-        quantity: cartItems[p.id],
-        price: p.precio,
+        cantidad: cartItems[p.id],
+        precio: p.precio,
       }));
 
-    const nuevoPedido = {
-      id: Date.now(),
+    const pedidoData = {
+      usuario_id: usuario.id, // o usuario.email según tu BD
       productos,
-      address,
-      paymentMethod,
+      direccion_envio: address,
+      metodo_pago: paymentMethod,
       subtotal,
-      shipping,
+      costo_envio: shipping,
       total,
-      estado: "En preparación",
     };
 
-    const pedidosPrevios = JSON.parse(localStorage.getItem("pedidos")) || [];
-    localStorage.setItem("pedidos", JSON.stringify([...pedidosPrevios, nuevoPedido]));
+    setLoading(true);
 
-    if (clearCart) clearCart();
+    try {
+      const res = await fetch("http://localhost:3000/orders/create", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+          "Authorization": `Bearer ${token}`, // Importante: enviar el token
+        },
+        body: JSON.stringify(pedidoData),
+      });
 
-    alert("🦀 Pedido confirmado. ¡Gracias por confiar en el Crustáceo Cascarudo!");
-    onClose();
-    navigate("/mispedidos");
+      const data = await res.json();
+
+      if (!res.ok) {
+        alert(data.message || "Error al crear el pedido");
+        setLoading(false);
+        return;
+      }
+
+      // Guardar pedido localmente para historial (opcional)
+      const pedidosPrevios = JSON.parse(localStorage.getItem("pedidos")) || [];
+      localStorage.setItem("pedidos", JSON.stringify([...pedidosPrevios, data.pedido]));
+
+      // Limpiar carrito
+      if (clearCart) clearCart();
+
+      alert("🦀 Pedido confirmado. ¡Gracias por confiar en el Crustáceo Cascarudo!");
+      onClose();
+      navigate("/mispedidos");
+
+    } catch (err) {
+      alert("Error comunicándose con el servidor");
+      console.error(err);
+    }
+
+    setLoading(false);
   };
 
   return (
@@ -112,8 +155,12 @@ const Modal = ({ isOpen, onClose, cartItems, all_products, clearCart }) => {
           </div>
         </div>
 
-        <button className="confirm-btn" onClick={handleConfirm}>
-          Confirmar Pedido
+        <button 
+          className="confirm-btn" 
+          onClick={handleConfirm}
+          disabled={loading}
+        >
+          {loading ? "Procesando..." : "Confirmar Pedido"}
         </button>
       </div>
     </div>

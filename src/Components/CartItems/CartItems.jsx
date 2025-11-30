@@ -8,6 +8,19 @@ const CartItems = () => {
   const { getTotalCartAmount, all_products, cartItems, removeFromCart, clearCart } = useContext(ShopContext);
   const [showModal, setShowModal] = useState(false);
 
+  // Verificar si el carrito está vacío
+  const isCartEmpty = () => {
+    return Object.values(cartItems).every(quantity => quantity === 0);
+  };
+
+  const handleCheckout = () => {
+    if (isCartEmpty()) {
+      alert("Arr! Tu carrito está vacío.");
+      return;
+    }
+    setShowModal(true);
+  };
+
   return (
     <div className='cartitems'>
       <div className="cartitems-format-main">

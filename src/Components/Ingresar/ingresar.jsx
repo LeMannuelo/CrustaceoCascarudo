@@ -38,7 +38,7 @@ const Ingresar = () => {
       localStorage.setItem("usuario", JSON.stringify(data.usuario));
       localStorage.setItem("token", data.token);
 
-      if (data.usuario.role_id === 1) {
+      if (data.usuario.role_id === "ADMIN") {
         navigate("/admin");
       } else {
         navigate("/");
