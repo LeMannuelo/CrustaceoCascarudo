@@ -1,6 +1,7 @@
 import React, { useState } from "react";
 import "./ingresar.css";
 import { Link, useNavigate } from "react-router-dom";
+import API_URL from "../../config/api";
 
 const Ingresar = () => {
   const navigate = useNavigate();
@@ -20,7 +21,7 @@ const Ingresar = () => {
     setLoading(true);
 
     try {
-      const res = await fetch("http://localhost:3000/auth/login", { // Ajustar URL
+      const res = await fetch(`${API_URL}/auth/register`, {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({ email, password })
