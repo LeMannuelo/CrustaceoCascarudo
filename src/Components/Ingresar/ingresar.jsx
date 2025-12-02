@@ -36,10 +36,10 @@ const Ingresar = () => {
       }
 
       // Guardar session
-      localStorage.setItem("usuario", JSON.stringify(data.usuario));
+      localStorage.setItem("usuario", JSON.stringify(data.user));
       localStorage.setItem("token", data.token);
 
-      if (data.usuario.role_id === "ADMIN") {
+      if (data.user.role === "ADMIN") {
         navigate("/admin");
       } else {
         navigate("/");
