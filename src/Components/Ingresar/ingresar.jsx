@@ -1,9 +1,7 @@
 import React, { useState } from "react";
 import "./ingresar.css";
 import { Link, useNavigate } from "react-router-dom";
-
-// Definimos la URL aquí directamente
-const API_URL = "http://localhost:3000"; 
+import API_URL from "../../config/api";
 
 const Ingresar = () => {
   const navigate = useNavigate();
