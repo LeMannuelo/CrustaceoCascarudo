@@ -13,7 +13,7 @@ const Modal = ({ isOpen, onClose, cartItems, all_products, clearCart }) => {
   if (!isOpen) return null;
 
   const subtotal = getTotalCartAmount();
-  const shipping = 4;
+  const shipping = 4; // Costo fijo de envío
   const total = subtotal + shipping;
 
   const handleConfirm = async () => {
@@ -22,75 +22,61 @@ const Modal = ({ isOpen, onClose, cartItems, all_products, clearCart }) => {
       return;
     }
 
-    // Obtener datos del usuario autenticado
-    const usuarioData = localStorage.getItem("usuario");
     const token = localStorage.getItem("token");
-
-    if (!usuarioData || !token) {
+    if (!token) {
       alert("Debes iniciar sesión para realizar un pedido");
       navigate("/ingresar");
       return;
     }
 
-    const usuario = JSON.parse(usuarioData);
-
-    // Preparar productos del pedido
-    const productos = all_products
-      .filter((p) => cartItems[p.id] > 0)
-      .map((p) => ({
-        producto_id: p.id,
-        name: p.name,
-        cantidad: cartItems[p.id],
-        precio: p.price,
+    setLoading(true);
+    const orderDetails = all_products
+      .filter((product) => cartItems[product.id] > 0)
+      .map((product) => ({
+        productId: product.id,
+        quantity: cartItems[product.id]
       }));
 
-    const pedidoData = {
-      usuario_id: usuario.id, // o usuario.email según tu BD
-      productos,
-      direccion_envio: address,
-      metodo_pago: paymentMethod,
-      subtotal,
-      costo_envio: shipping,
-      total,
+    const payload = {
+      address: address,
+      orderDetails: orderDetails
     };
 
-    setLoading(true);
-
     try {
-      const res = await fetch("http://localhost:3000/orders/create", {
+      const res = await fetch("http://localhost:8080/order", {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
-          "Authorization": `Bearer ${token}`, // Importante: enviar el token
+          "Authorization": `Bearer ${token}`,
         },
-        body: JSON.stringify(pedidoData),
+        body: JSON.stringify(payload),
       });
 
-      const data = await res.json();
-
-      if (!res.ok) {
-        alert(data.message || "Error al crear el pedido");
-        setLoading(false);
-        return;
+      let data;
+      const contentType = res.headers.get("content-type");
+      if (contentType && contentType.includes("application/json")) {
+        data = await res.json();
+      } else {
+        data = { message: await res.text() };
       }
 
-      // Guardar pedido localmente para historial (opcional)
-      const pedidosPrevios = JSON.parse(localStorage.getItem("pedidos")) || [];
-      localStorage.setItem("pedidos", JSON.stringify([...pedidosPrevios, data.pedido]));
+      if (!res.ok) {
+        throw new Error(data.message || "Error al procesar el pedido");
+      }
 
-      // Limpiar carrito
-      if (clearCart) clearCart();
-
-      alert("🦀 Pedido confirmado. ¡Gracias por confiar en el Crustáceo Cascarudo!");
+      alert("🦀 ¡Pedido realizado con éxito! Gracias por preferirnos.");
+      
+      if (clearCart) clearCart(); 
+      
       onClose();
       navigate("/mispedidos");
 
     } catch (err) {
-      alert("Error comunicándose con el servidor");
       console.error(err);
+      alert("Hubo un problema: " + err.message);
+    } finally {
+      setLoading(false);
     }
-
-    setLoading(false);
   };
 
   return (
@@ -99,7 +85,6 @@ const Modal = ({ isOpen, onClose, cartItems, all_products, clearCart }) => {
         <button className="modal-close" onClick={onClose}>✕</button>
         <h2>Finalizar Pedido</h2>
         <p className="modal-subtitle">Tu orden está casi lista para salir del Crustáceo 🦀</p>
-
         <div className="modal-summary">
           <div className="modal-summary-item">
             <span>Subtotal</span>
@@ -111,12 +96,11 @@ const Modal = ({ isOpen, onClose, cartItems, all_products, clearCart }) => {
           </div>
           <hr />
           <div className="modal-summary-item total">
-            <strong>Total</strong>
+            <strong>Total a Pagar</strong>
             <strong>${total}</strong>
           </div>
         </div>
 
-        {/* Dirección */}
         <div className="modal-section">
           <label>Dirección de entrega:</label>
           <input
@@ -133,7 +117,7 @@ const Modal = ({ isOpen, onClose, cartItems, all_products, clearCart }) => {
             title="Mapa de entrega"
             loading="lazy"
             allowFullScreen
-            src={`https://www.google.com/maps?q=${encodeURIComponent(address)}&output=embed`}
+            src={`https://maps.google.com/maps?q=${encodeURIComponent(address)}&t=&z=13&ie=UTF8&iwloc=&output=embed`}
           ></iframe>
         )}
 
@@ -160,7 +144,7 @@ const Modal = ({ isOpen, onClose, cartItems, all_products, clearCart }) => {
           onClick={handleConfirm}
           disabled={loading}
         >
-          {loading ? "Procesando..." : "Confirmar Pedido"}
+          {loading ? "Enviando..." : "Confirmar Pedido"}
         </button>
       </div>
     </div>

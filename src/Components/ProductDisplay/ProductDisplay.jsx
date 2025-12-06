@@ -4,7 +4,7 @@ import star_icon from '@/Components/Assets/star_icon.png'
 import starr_dull_icon from '@/Components/Assets/star_dull_icon.png'
 import { ShopContext } from '../../Context/ShopContext'
 import { useNavigate } from 'react-router-dom'
-import AuthModal from '../AuthModal/AuthModal' // Crearemos este componente
+import AuthModal from '../AuthModal/AuthModal' 
 
 const ProductDisplay = ({ product }) => {
     const { addToCart } = useContext(ShopContext);
@@ -67,7 +67,6 @@ const ProductDisplay = ({ product }) => {
                 </button>
             </div>
 
-            {/* Modal de autenticación */}
             <AuthModal 
                 isOpen={showAuthModal}
                 onClose={() => setShowAuthModal(false)}

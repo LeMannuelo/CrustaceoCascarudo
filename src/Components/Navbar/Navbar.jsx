@@ -9,7 +9,7 @@ import cart from '../Assets/cart.png'
 import { ShopContext } from '../../Context/ShopContext'
 
 const Navbar = () => {
-    const { getTotalCartItems } = useContext(ShopContext);
+    const { getTotalCartItems, clearCart } = useContext(ShopContext);
     const location = useLocation();
     const navigate = useNavigate();
 
@@ -30,7 +30,8 @@ const Navbar = () => {
         localStorage.removeItem('token');
         setUser(null);
         setShowProfileMenu(false);
-        navigate('/'); // Redirigir al home
+        clearCart(); // Limpiar el carrito al cerrar sesión
+        navigate('/ingresar'); // Redirigir al home
     };
 
     const isActive = (path) => location.pathname === path ? 'active' : '';
