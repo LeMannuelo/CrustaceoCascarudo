@@ -53,7 +53,7 @@ const MenuCategory = () => {
             id={item.id}
             name={item.name}
             image={item.image}
-            new_price={item.precio}
+            new_price={item.price}
           />
         ))}
       </div>

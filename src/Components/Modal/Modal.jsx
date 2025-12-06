@@ -41,7 +41,7 @@ const Modal = ({ isOpen, onClose, cartItems, all_products, clearCart }) => {
         producto_id: p.id,
         name: p.name,
         cantidad: cartItems[p.id],
-        precio: p.precio,
+        precio: p.price,
       }));
 
     const pedidoData = {

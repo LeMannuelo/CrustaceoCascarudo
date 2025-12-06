@@ -49,7 +49,7 @@ const ProductDisplay = ({ product }) => {
 
                 <div className="productdisplay-price">
                     <span className="price-label">Precio:</span>
-                    <span className="price-value">${product.precio}</span>
+                    <span className="price-value">${product.price}</span>
                 </div>
 
                 <div className="productdisplay-description">
