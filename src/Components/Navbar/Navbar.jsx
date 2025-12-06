@@ -12,6 +12,8 @@ const Navbar = () => {
     const { getTotalCartItems } = useContext(ShopContext);
     const location = useLocation();
 
+    const token = localStorage.getItem("token");
+
     const isActive = (path) => location.pathname === path ? 'active' : '';
 
     return (
@@ -39,9 +41,16 @@ const Navbar = () => {
             </div>
 
             <div className="nav-login">
-                <Link to="/signup">
-                    <button>Ingresar</button>
-                </Link>
+                {token ? (
+                    <Link to="/perfil">
+                        <button>Mi perfil</button>
+                    </Link>
+                ) : (
+                    <Link to="/ingresar">
+                        <button>Ingresar</button>
+                    </Link>
+                )}
+
                 <Link to="/cart" className="nav-cart">
                     <img src={cart} alt="carrito" />
                     <div className="nav-cart-count">{getTotalCartItems()}</div>

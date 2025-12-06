@@ -1,5 +1,5 @@
 import './App.css';
-import React, { useEffect } from 'react';
+import React from 'react'; 
 import Navbar from './Components/Navbar/Navbar';
 import { BrowserRouter, Routes, Route } from 'react-router-dom';
 import Inicio from './Pages/Inicio';
@@ -14,14 +14,11 @@ import MenuCategory from './Pages/MenuCategory';
 import Product from './Pages/Product';
 import Admin from "./Pages/Admin";
 import ScrollToTop from './Components/ScrollToTop';
+import Perfil from './Components/Perfil/Perfil'; 
 
 
 function App() {
-
-  useEffect(() => {
-    localStorage.clear();
-  }, []);
-
+  
   return (
     <BrowserRouter>
     <ScrollToTop />
@@ -37,6 +34,8 @@ function App() {
         <Route path="/sobre-nosotros" element={<SobreNosotros />} />
         <Route path="/preguntas-frecuentes" element={<PreguntasFrecuentes />} />
         <Route path="/ingresar" element={<Ingresar />} />
+        <Route path="/perfil" element={<Perfil />} />
+        
       </Routes>
       <Footer/>
     </BrowserRouter>
