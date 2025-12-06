@@ -89,7 +89,7 @@ const Navbar = () => {
                     </div>
                 ) : (
                     // NO HAY USUARIO: Mostrar Botón Ingresar
-                    <Link to="/signup">
+                    <Link to="/ingresar">
                         <button>Ingresar</button>
                     </Link>
                 )}

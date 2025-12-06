@@ -1,5 +1,5 @@
 import './App.css';
-import React, { useEffect } from 'react';
+import React from 'react';
 import Navbar from './Components/Navbar/Navbar';
 import { BrowserRouter, Routes, Route } from 'react-router-dom';
 import Inicio from './Pages/Inicio';
@@ -17,10 +17,6 @@ import ScrollToTop from './Components/ScrollToTop';
 
 
 function App() {
-
-  useEffect(() => {
-    localStorage.clear();
-  }, []);
 
   return (
     <BrowserRouter>
