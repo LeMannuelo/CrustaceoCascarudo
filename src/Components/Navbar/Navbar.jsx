@@ -35,7 +35,7 @@ const Navbar = () => {
 
     const isActive = (path) => location.pathname === path ? 'active' : '';
 
-    // Icono SVG de Usuario (Avatar)
+    // Icono SVG de Usuario (Avatar) para no depender de una imagen externa
     const UserIcon = () => (
         <svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" className="user-avatar-svg">
             <path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"></path>
@@ -78,7 +78,10 @@ const Navbar = () => {
                         <UserIcon />
                         {showProfileMenu && (
                             <div className="profile-dropdown">
-                                <p className="profile-name">Hola, {user.name}</p>
+                                <div className="profile-info">
+                                    <p className="profile-name">{user.name}</p>
+                                    <p className="profile-email">{user.email}</p>
+                                </div>
                                 <hr />
                                 <button onClick={handleLogout}>Cerrar Sesión</button>
                             </div>

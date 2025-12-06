@@ -1,4 +1,5 @@
 @import url('https://fonts.googleapis.com/css2?family=Fredoka+One&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Poppins:wght@400;600&display=swap');
 
 * {
   margin: 0;
@@ -102,7 +103,7 @@
   padding: 15px;
   border-radius: 10px;
   box-shadow: 0 4px 15px rgba(0,0,0,0.2);
-  width: 180px;
+  width: 220px;
   display: flex;
   flex-direction: column;
   gap: 10px;
@@ -110,6 +111,7 @@
   text-align: center;
 }
 
+/* Triangulito decorativo del dropdown */
 .profile-dropdown::before {
   content: '';
   position: absolute;
@@ -121,12 +123,26 @@
   transform: rotate(45deg);
 }
 
+.profile-info {
+    display: flex;
+    flex-direction: column;
+    gap: 2px;
+}
+
 .profile-name {
   color: #333;
-  font-family: 'Poppins', sans-serif; /* O la fuente que prefieras para texto plano */
-  font-size: 14px;
+  font-family: 'Poppins', sans-serif;
+  font-size: 15px;
   font-weight: 600;
   margin: 0;
+}
+
+.profile-email {
+  color: #666;
+  font-family: 'Poppins', sans-serif;
+  font-size: 12px;
+  margin: 0;
+  word-break: break-all;
 }
 
 .profile-dropdown hr {
@@ -140,9 +156,11 @@
   background: transparent;
   color: #bb1e2d;
   border: 1px solid #bb1e2d;
-  padding: 5px 10px;
+  padding: 6px 10px;
   font-size: 14px;
   width: 100%;
+  border-radius: 6px;
+  box-shadow: none;
 }
 
 .profile-dropdown button:hover {
@@ -243,10 +261,10 @@
       transform: scale(1.1);
   }
   
-  /* Ajuste del Dropdown en móvil para que no se salga */
+  /* Ajuste del Dropdown en móvil */
   .profile-dropdown {
       right: -10px;
       top: 45px;
-      width: 150px;
+      width: 200px;
   }
 }
