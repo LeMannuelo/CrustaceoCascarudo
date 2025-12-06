@@ -1,4 +1,3 @@
-
 .login {
   width: 100%;
   min-height: 100vh;
@@ -33,6 +32,7 @@
   margin-top: 20px;
 }
 
+/* --- ESTILOS INPUTS --- */
 .login-fields input {
   height: 60px; 
   width: 100%;
@@ -51,6 +51,37 @@
   background-color: #fff;
   box-shadow: 0 0 0 4px rgba(255, 65, 65, 0.1);
 }
+
+/* --- NUEVO: WRAPPER PARA EL INPUT DE CONTRASEÑA --- */
+.password-wrapper {
+  position: relative;
+  width: 100%;
+}
+
+/* Aseguramos que el input dentro del wrapper tome los estilos heredados y espacio para el icono */
+.password-wrapper input {
+  padding-right: 50px; /* Espacio a la derecha para que el texto no tape el icono */
+}
+
+/* Icono del ojo (toggle) */
+.password-toggle-icon {
+  position: absolute;
+  right: 15px;
+  top: 50%;
+  transform: translateY(-50%);
+  cursor: pointer;
+  color: #7d7d7d;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: color 0.3s;
+}
+
+.password-toggle-icon:hover {
+  color: #ff4141;
+}
+
+/* --- FIN NUEVOS ESTILOS --- */
 
 .login-container button {
   width: 100%;

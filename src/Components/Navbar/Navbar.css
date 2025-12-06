@@ -9,9 +9,9 @@
 /* --- ESTILOS GENERALES (ESCRITORIO) --- */
 .navbar {
   display: flex;
-  justify-content: space-between; /* Logo izq, Menu centro, Login der */
+  justify-content: space-between;
   align-items: center;
-  background-color: #0b2772; /* Tu color Azul original */
+  background-color: #0b2772;
   padding: 15px 5%;
   font-family: 'Fredoka One', cursive;
   position: sticky;
@@ -25,7 +25,6 @@
   object-fit: contain;
 }
 
-/* Contenedor de los links */
 .navbar-menu {
   display: flex;
   gap: 40px;
@@ -37,7 +36,7 @@
   align-items: center;
   gap: 8px;
   cursor: pointer;
-  color: #ffffff; /* Texto blanco original */
+  color: #ffffff;
   text-decoration: none;
   font-size: 18px;
   transition: transform 0.2s ease, color 0.2s ease;
@@ -56,7 +55,7 @@
 .nav-login {
   display: flex;
   align-items: center;
-  gap: 15px;
+  gap: 20px;
 }
 
 .nav-login button {
@@ -76,6 +75,81 @@
   background-color: #d92536;
   transform: translateY(-2px);
 }
+
+/* --- PERFIL DE USUARIO Y DROPDOWN --- */
+.nav-user-profile {
+  position: relative;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.user-avatar-svg {
+  color: white;
+  transition: color 0.3s ease;
+}
+
+.nav-user-profile:hover .user-avatar-svg {
+  color: #bb1e2d;
+}
+
+.profile-dropdown {
+  position: absolute;
+  top: 50px;
+  right: 0;
+  background: white;
+  padding: 15px;
+  border-radius: 10px;
+  box-shadow: 0 4px 15px rgba(0,0,0,0.2);
+  width: 180px;
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  z-index: 1001;
+  text-align: center;
+}
+
+.profile-dropdown::before {
+  content: '';
+  position: absolute;
+  top: -8px;
+  right: 10px;
+  width: 16px;
+  height: 16px;
+  background: white;
+  transform: rotate(45deg);
+}
+
+.profile-name {
+  color: #333;
+  font-family: 'Poppins', sans-serif; /* O la fuente que prefieras para texto plano */
+  font-size: 14px;
+  font-weight: 600;
+  margin: 0;
+}
+
+.profile-dropdown hr {
+  border: none;
+  height: 1px;
+  background: #eee;
+  width: 100%;
+}
+
+.profile-dropdown button {
+  background: transparent;
+  color: #bb1e2d;
+  border: 1px solid #bb1e2d;
+  padding: 5px 10px;
+  font-size: 14px;
+  width: 100%;
+}
+
+.profile-dropdown button:hover {
+  background: #bb1e2d;
+  color: white;
+}
+/* --- FIN PERFIL --- */
 
 .nav-cart {
   position: relative;
@@ -118,7 +192,7 @@
     padding: 10px 20px;
     height: 70px;
     justify-content: space-between; 
-      border-bottom: 2px solid #bb1e2d; 
+    border-bottom: 2px solid #bb1e2d; 
   }
 
   .navbar-logo img {
@@ -131,7 +205,7 @@
   }
 
   .nav-login {
-    gap: 10px;
+    gap: 15px;
   }
 
   .navbar-menu {
@@ -146,7 +220,7 @@
     align-items: center;
     padding: 0 10px;
     box-shadow: 0 -4px 10px rgba(0,0,0,0.2);
-      border-top: 2px solid #bb1e2d; 
+    border-top: 2px solid #bb1e2d; 
     z-index: 1000;
   }
 
@@ -161,12 +235,18 @@
     height: 24px;
   }
   
-
   .menu-item.active {
       color: #bb1e2d; 
       font-weight: bold;
   }
   .menu-item.active img {
       transform: scale(1.1);
+  }
+  
+  /* Ajuste del Dropdown en móvil para que no se salga */
+  .profile-dropdown {
+      right: -10px;
+      top: 45px;
+      width: 150px;
   }
 }
