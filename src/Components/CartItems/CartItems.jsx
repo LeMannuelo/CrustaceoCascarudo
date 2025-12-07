@@ -35,10 +35,15 @@ const CartItems = () => {
 
       {all_products.map((e) => {
         if (cartItems[e.id] > 0) {
+
+          const imagePath = e.image.startsWith('./') 
+              ? e.image.replace('./', '/images/') 
+              : e.image;
+
           return (
             <div key={e.id}>
               <div className="cartitems-format cartitems-format-main">
-                <img src={e.image} alt="" className='carticon-product-icon' />
+                <img src={imagePath} alt="" className='carticon-product-icon' />
                 <p>{e.name}</p>
                 <p>${e.price}</p>
                 <button className='cartitems-quantity'>{cartItems[e.id]}</button>
@@ -82,7 +87,7 @@ const CartItems = () => {
           </div>
         </div>
       </div>
-              <Modal
+      <Modal
           isOpen={showModal}
           onClose={() => setShowModal(false)}
           cartItems={cartItems}
