@@ -5,32 +5,77 @@ export const ShopContext = createContext(null);
 const ShopContextProvider = (props) => {
   const [all_products, setAllProducts] = useState([]);
   
-  // CAMBIO 1: Iniciamos leyendo el localStorage. Si no hay nada, usa {}
+  // --- 1. GESTIÓN DEL CARRITO ---
   const [cartItems, setCartItems] = useState(() => {
     const savedCart = localStorage.getItem("cartItems");
     return savedCart ? JSON.parse(savedCart) : {};
   });
 
-  // CAMBIO 2: Cada vez que cartItems cambie, lo guardamos en localStorage
   useEffect(() => {
     localStorage.setItem("cartItems", JSON.stringify(cartItems));
   }, [cartItems]);
 
-  // 3. useEffect para hacer el GET al backend al cargar la app
+  // --- 2. GESTIÓN DE USUARIO (RESTAURADO) ---
+  // Esto es vital para que la Navbar se actualice sola al loguearte/desloguearte
+  const [user, setUser] = useState(() => {
+    const savedUser = localStorage.getItem("usuario");
+    return savedUser ? JSON.parse(savedUser) : null;
+  });
+
+  const login = (userData, token) => {
+    localStorage.setItem("usuario", JSON.stringify(userData));
+    localStorage.setItem("token", token);
+    setUser(userData);
+  };
+
+  const logout = () => {
+    localStorage.removeItem("usuario");
+    localStorage.removeItem("token");
+    setUser(null);
+    setCartItems({});
+  };
+
+  // --- 3. FETCH DE PRODUCTOS (CORREGIDO) ---
   useEffect(() => {
-    fetch('http://localhost:8080/product') // Tu endpoint
-      .then((response) => response.json()) 
-      .then((data) => {
+    const fetchProducts = async () => {
+      try {
+        const token = localStorage.getItem("token");
+        
+        // Preparamos los headers
+        const headers = {
+          "Content-Type": "application/json",
+        };
+
+        // CORRECCIÓN CLAVE: Solo enviamos el token si realmente existe.
+        // Enviar "Bearer null" hace que el backend bloquee la petición.
+        if (token && token !== "null" && token !== "undefined") {
+          headers["Authorization"] = `Bearer ${token}`;
+        }
+
+        const response = await fetch("http://localhost:8080/product", {
+          method: "GET",
+          headers: headers,
+        });
+
+        if (!response.ok) {
+          throw new Error(`Error HTTP: ${response.status}`);
+        }
+
+        const data = await response.json();
         setAllProducts(data);
-      })
-      .catch((error) => console.error("Error cargando productos:", error));
+      } catch (error) {
+        console.error("Error cargando productos:", error);
+      }
+    };
+
+    fetchProducts();
   }, []);
 
-  // 4. Funciones del carrito adaptadas para ser dinámicas
+  // --- 4. FUNCIONES DEL CARRITO ---
   const addToCart = (itemId) => {
     setCartItems((prev) => ({ 
       ...prev, 
-      [itemId]: (prev[itemId] || 0) + 1 // Si no existe, empieza en 0 y suma 1
+      [itemId]: (prev[itemId] || 0) + 1 
     }));
   };
 
@@ -49,11 +94,9 @@ const ShopContextProvider = (props) => {
     let totalAmount = 0;
     for (const item in cartItems) {
       if (cartItems[item] > 0) {
-        // Buscamos el producto en la lista cargada del backend
         const itemInfo = all_products.find(
           (product) => product.id === Number(item)
         );
-        // Verificamos que itemInfo exista (por si el fetch no ha terminado)
         if (itemInfo) {
           totalAmount += itemInfo.price * cartItems[item];
         }
@@ -80,6 +123,10 @@ const ShopContextProvider = (props) => {
     addToCart,
     removeFromCart,
     clearCart,
+    // Agregamos de nuevo las funciones de usuario al contexto
+    user,
+    login,
+    logout
   };
 
   return (
