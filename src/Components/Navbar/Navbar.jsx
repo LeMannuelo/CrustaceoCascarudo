@@ -99,7 +99,7 @@ const Navbar = () => {
                         {showProfileMenu && (
                             <div className="profile-dropdown">
                                 <div className="profile-info">
-                                    <p className="profile-name">{user.name}</p>
+                                    <p className="profile-name">¡Arr! {user.name}</p>
                                     <p className="profile-email">{user.email}</p>
                                 </div>
                                 <hr />

@@ -66,10 +66,16 @@ const Login = () => {
       const data = await res.json();
 
       if (!res.ok) {
-        setErrorMsg(data.message || "Error al registrarse");
-        setLoading(false);
-        return;
-      }
+              if (data.validationErrors && data.validationErrors.name === "La formula no te pertenece") {
+                  setErrorMsg("¿Eres tú, Plankton?");
+                  alert("¡ALERTA DE INTRUSO!");
+              } else {
+                  setErrorMsg(data.message || "Error al registrarse, email ya registrado");
+              }
+              
+              setLoading(false);
+              return;
+            }
 
       alert("Cuenta creada con éxito");
       navigate("/ingresar");

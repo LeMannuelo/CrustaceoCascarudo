@@ -2,25 +2,22 @@ import React, { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import "./CSS/Admin.css";
 
-// Ajusta si tu backend tiene un endpoint diferente
 const API_URL = "http://localhost:8080"; 
 
 const Admin = () => {
   const navigate = useNavigate();
   const [orders, setOrders] = useState([]);
   const [loading, setLoading] = useState(false);
-  const [view, setView] = useState("dashboard"); // 'dashboard' | 'orders'
+  const [view, setView] = useState("dashboard");
+  const [selectedOrder, setSelectedOrder] = useState(null);
 
-  // Verificar si es ADMIN al cargar
   useEffect(() => {
     const user = JSON.parse(localStorage.getItem("usuario"));
-    // Seguridad básica en frontend
     if (!user || user.role !== "ADMIN") {
       navigate("/"); 
     }
   }, [navigate]);
 
-  // Función para obtener TODOS los pedidos
   const fetchOrders = async () => {
     setLoading(true);
     try {
@@ -34,25 +31,19 @@ const Admin = () => {
       
       if (response.ok) {
         const data = await response.json();
-        // Ordenar por ID descendente
         const sortedData = Array.isArray(data) ? data.sort((a, b) => b.id - a.id) : [];
         setOrders(sortedData);
         setView("orders");
       } else {
-        if (response.status === 403) {
-            alert("Acceso denegado (403). Tu usuario ADMIN no tiene permiso para ver este endpoint.");
-        } else {
-            alert(`Error al cargar pedidos: ${response.status}`);
-        }
+        alert(`Error: ${response.status}`);
       }
     } catch (error) {
       console.error("Error fetching orders:", error);
-      alert("Error de conexión con el servidor.");
+      alert("Error de conexión.");
     }
     setLoading(false);
   };
 
-  // Función para cambiar el estado del pedido
   const handleStatusChange = async (orderId, newStatus) => {
     try {
       const token = localStorage.getItem("token");
@@ -72,38 +63,36 @@ const Admin = () => {
           )
         );
       } else {
-        alert("No se pudo actualizar el estado.");
+        alert("Error al actualizar estado.");
       }
     } catch (error) {
       console.error("Error updating status:", error);
     }
   };
 
-  // Estilos dinámicos para las etiquetas de estado
   const getStatusStyle = (status) => {
     const s = status ? status.toUpperCase() : "";
-    if (s.includes("ENTREGADO")) return { backgroundColor: "#d4edda", color: "#155724" }; // Verde
-    if (s.includes("CAMINO")) return { backgroundColor: "#cce5ff", color: "#004085" }; // Azul
-    if (s.includes("PREPARA")) return { backgroundColor: "#fff3cd", color: "#856404" }; // Amarillo
-    return { backgroundColor: "#f8d7da", color: "#721c24" }; // Rojo/Default
+    if (s.includes("ENTREGADO")) return { backgroundColor: "#d4edda", color: "#155724" }; 
+    if (s.includes("CAMINO")) return { backgroundColor: "#cce5ff", color: "#004085" }; 
+    if (s.includes("PREPARA")) return { backgroundColor: "#fff3cd", color: "#856404" }; 
+    return { backgroundColor: "#f8d7da", color: "#721c24" }; 
   };
 
   return (
     <div className="admin-panel">
-      <h1>Panel de Administración 🛡️</h1>
+      <h1>Panel de Administración</h1>
 
-      {/* --- DASHBOARD (TARJETAS) --- */}
       {view === "dashboard" && (
         <div className="admin-grid">
           <div className="admin-card">
             <h2>Productos 🍔</h2>
-            <p>Ver, añadir o modificar los productos del menú.</p>
-            <button onClick={() => alert("Funcionalidad en construcción")}>Gestionar</button>
+            <p>Gestionar menú.</p>
+            <button onClick={() => alert("Próximamente")}>Gestionar</button>
           </div>
 
           <div className="admin-card">
             <h2>Pedidos 📦</h2>
-            <p>Revisar pedidos activos, cambiar estados y envíos.</p>
+            <p>Ver pedidos activos.</p>
             <button onClick={fetchOrders}>
                 {loading ? "Cargando..." : "Ver pedidos"}
             </button>
@@ -111,17 +100,16 @@ const Admin = () => {
 
           <div className="admin-card">
             <h2>Usuarios 👥</h2>
-            <p>Administrar usuarios registrados en la plataforma.</p>
-            <button onClick={() => alert("Funcionalidad en construcción")}>Administrar</button>
+            <p>Gestionar usuarios.</p>
+            <button onClick={() => alert("Próximamente")}>Administrar</button>
           </div>
         </div>
       )}
 
-      {/* --- VISTA DE TABLA DE PEDIDOS --- */}
       {view === "orders" && (
         <div className="orders-section">
             <div className="orders-header-row">
-                <button className="back-btn" onClick={() => setView("dashboard")}>← Volver al Panel</button>
+                <button className="back-btn" onClick={() => setView("dashboard")}>← Volver</button>
                 <h2>Gestión de Pedidos</h2>
             </div>
             
@@ -131,9 +119,9 @@ const Admin = () => {
                   <tr>
                     <th>ID</th>
                     <th>Cliente</th>
-                    <th>Dirección</th>
+                    <th>Detalles</th>
                     <th>Total</th>
-                    <th>Estado Actual</th>
+                    <th>Estado</th>
                     <th>Acción</th>
                   </tr>
                 </thead>
@@ -143,45 +131,91 @@ const Admin = () => {
                       <td>#{order.id}</td>
                       <td>
                         <div className="user-cell">
-                            <span className="u-name">{order.user ? order.user.name : "Usuario #" + order.userId}</span>
+                            {/* El JSON trae el objeto user anidado: order.user.name */}
+                            <span className="u-name">{order.user ? order.user.name : "Anónimo"}</span>
                             <span className="u-email">{order.user ? order.user.email : ""}</span>
                         </div>
                       </td>
-                      <td className="address-cell">{order.address}</td>
+                      
+                      <td>
+                        <button 
+                            className="btn-details"
+                            onClick={() => setSelectedOrder(order)}
+                        >
+                            Ver
+                        </button>
+                      </td>
+
                       <td className="total-cell">${order.amount}</td>
                       <td>
                         <span 
                           className="status-badge"
                           style={getStatusStyle(order.status)}
                         >
-                          {order.status || "Pendiente"}
+                          {order.status || "PENDING"}
                         </span>
                       </td>
                       <td>
                         <select 
                           className="status-select"
-                          value={order.status || "Pendiente"} 
+                          value={order.status || "PENDING"} 
                           onChange={(e) => handleStatusChange(order.id, e.target.value)}
                         >
-                          <option value="Pendiente">Pendiente</option>
-                          <option value="En preparación">En preparación</option>
-                          <option value="En camino">En camino</option>
-                          <option value="Entregado">Entregado</option>
+                          <option value="PENDING">Pendiente</option>
+                          <option value="EN_PREPARACION">En preparación</option>
+                          <option value="EN_CAMINO">En camino</option>
+                          <option value="ENTREGADO">Entregado</option>
                         </select>
                       </td>
                     </tr>
                   ))}
                 </tbody>
               </table>
-              
-              {orders.length === 0 && (
-                <div className="no-data">
-                    <p>No se encontraron pedidos en el sistema.</p>
-                </div>
-              )}
             </div>
         </div>
       )}
+
+      {/* --- MODAL ADAPTADO AL NUEVO JSON --- */}
+      {selectedOrder && (
+        <div className="admin-modal-overlay" onClick={() => setSelectedOrder(null)}>
+            <div className="admin-modal-content" onClick={e => e.stopPropagation()}>
+                <button className="admin-modal-close" onClick={() => setSelectedOrder(null)}>✕</button>
+                
+                <h3 style={{marginBottom: '15px', color: '#0b2772'}}>Pedido #{selectedOrder.id}</h3>
+                
+                <p style={{fontSize: '13px', fontWeight: 'bold', marginBottom: '5px'}}>📍 Dirección de entrega:</p>
+                <div className="modal-address-box">
+                    {selectedOrder.address}
+                </div>
+
+                <p style={{fontSize: '13px', fontWeight: 'bold', marginBottom: '5px'}}>📝 Productos:</p>
+                <div className="modal-products-list">
+                    {selectedOrder.orderDetails && selectedOrder.orderDetails.map((detail, index) => (
+                        <div key={index} className="detail-row">
+                            <div className="detail-info">
+                                {/* AQUÍ ESTÁ LA CLAVE: Accedemos a detail.product.name */}
+                                <span className="detail-name">
+                                    {detail.product ? detail.product.name : "Producto desconocido"}
+                                </span>
+                                <span className="detail-qty">Cant: {detail.quantity}</span>
+                            </div>
+                            {/* Usamos el subtotal que ya viene calculado en el JSON */}
+                            <span className="detail-price">
+                                ${detail.subtotal}
+                            </span>
+                        </div>
+                    ))}
+                </div>
+
+                <div style={{marginTop: '20px', textAlign: 'right', borderTop: '2px dashed #eee', paddingTop: '10px'}}>
+                    <span style={{fontSize: '16px', fontWeight: 'bold', color: '#bb1e2d'}}>
+                        Total: ${selectedOrder.amount}
+                    </span>
+                </div>
+            </div>
+        </div>
+      )}
+
     </div>
   );
 };
