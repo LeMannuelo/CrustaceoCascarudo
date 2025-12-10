@@ -85,7 +85,7 @@ const PedidosItems = () => {
     const s = statusRaw ? statusRaw.toUpperCase() : 'PENDIENTE';
     
     if (s === 'ENTREGADO' || s === 'DELIVERED') return '✅ Entregado';
-    if (s === 'EN CAMINO' || s === 'SHIPPED') return '🛵 En camino';
+    if (s === 'EN CAMINO' || s === 'OUT_FOR_DELIVERY') return '🛵 En camino';
     if (s.includes('PREPARA')) return '🍳 En preparación';
     if (s.includes('CANCEL')) return '❌ Cancelado';
     
