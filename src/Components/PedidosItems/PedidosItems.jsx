@@ -20,6 +20,7 @@ const PedidosItems = () => {
       }
 
       try {
+        // Usamos el endpoint para obtener pedidos (puede ser /order o /order/active según tu preferencia)
         const response = await fetch(`${API_URL}/order`, { 
           method: "GET",
           headers: {
@@ -48,14 +49,16 @@ const PedidosItems = () => {
     fetchOrders();
   }, []);
 
-  // 2. Función para Cancelar Pedido
+  // 2. Función para Cancelar Pedido (CORREGIDA)
   const handleCancelOrder = async (orderId) => {
     if (!window.confirm("¿Seguro que quieres cancelar este pedido?")) return;
 
     try {
       const token = localStorage.getItem("token");
-      const response = await fetch(`${API_URL}/order/${orderId}`, {
-        method: "DELETE",
+      
+      // CAMBIO CLAVE: Usamos PUT y la ruta /cancel/{id} definida en tu OrderController
+      const response = await fetch(`${API_URL}/order/cancel/${orderId}`, {
+        method: "PUT", 
         headers: {
           "Authorization": `Bearer ${token}`,
           "Content-Type": "application/json",
@@ -64,55 +67,51 @@ const PedidosItems = () => {
 
       if (response.ok) {
         alert("Pedido cancelado exitosamente.");
-        // Actualizar la lista visualmente eliminando el pedido
+        // Lo removemos de la lista visualmente ya que se canceló
         setPedidos(prev => prev.filter(p => p.id !== orderId));
       } else {
-        alert("No se pudo cancelar (quizás ya está en camino o el estado no lo permite).");
+        // Si falla, mostramos el estado para depurar
+        console.error("Error del servidor:", response.status);
+        alert("No se pudo cancelar. Verifica si el pedido ya está en camino.");
       }
     } catch (error) {
-      console.error("Error cancelando:", error);
+      console.error("Error de conexión:", error);
       alert("Error de conexión al intentar cancelar.");
     }
   };
 
-  // Helper para mostrar estado bonito (Normalización)
+  // Helper para mostrar estado bonito
   const getStatusLabel = (statusRaw) => {
-    // Convertimos a mayúsculas para comparar seguro
     const s = statusRaw ? statusRaw.toUpperCase() : 'PENDIENTE';
     
     if (s === 'ENTREGADO' || s === 'DELIVERED') return '✅ Entregado';
     if (s === 'EN CAMINO' || s === 'SHIPPED') return '🛵 En camino';
-    if (s === 'EN PREPARACIÓN' || s === 'PREPARING' || s === 'EN PREPARACION') return '🍳 En preparación';
-    if (s === 'CANCELADO' || s === 'CANCELLED') return '❌ Cancelado';
+    if (s.includes('PREPARA')) return '🍳 En preparación';
+    if (s.includes('CANCEL')) return '❌ Cancelado';
     
-    return '🕒 Pendiente'; // Default
+    return '🕒 Pendiente'; 
   };
 
   // Helper ROBUSTO para calcular el total
   const calcularTotalSeguro = (pedido) => {
-    // 1. Si el backend ya trae el total calculado, úsalo.
+    // 1. Si el backend ya trae el total calculado
     if (pedido.total !== undefined && pedido.total !== null) {
         const val = parseFloat(pedido.total);
         if (!isNaN(val) && val > 0) return val;
     }
 
-    // 2. Si no, calcúlalo sumando los detalles manualmente
+    // 2. Si no, calcular sumando items
     if (!pedido.orderDetails || !Array.isArray(pedido.orderDetails)) return 0;
     
     return pedido.orderDetails.reduce((acc, detalle) => {
         let precio = 0;
 
-        // Opción A: El detalle ya trae el precio (ideal)
         if (detalle.price) {
             precio = parseFloat(detalle.price);
-        } 
-        // Opción B: El detalle tiene el producto anidado
-        else if (detalle.product && detalle.product.price) {
+        } else if (detalle.product && detalle.product.price) {
             precio = parseFloat(detalle.product.price);
-        }
-        // Opción C: Buscar en el catálogo global (all_products) del contexto
-        else if (all_products.length > 0) {
-            const prod = all_products.find(p => p.id === detalle.productId);
+        } else if (all_products.length > 0) {
+            const prod = all_products.find(p => p.id == detalle.productId); // Doble igual para coincidencia flexible (string/number)
             if (prod) precio = parseFloat(prod.price);
         }
 
@@ -137,18 +136,14 @@ const PedidosItems = () => {
       <h1>Mis Pedidos</h1>
       {pedidos.map((pedido) => {
         
-        // CORRECCIÓN: Normalizamos el estado para que la comparación funcione
         const statusUpper = (pedido.status || "PENDIENTE").toUpperCase();
+        // Solo permitimos cancelar si está PENDIENTE
+        const puedeCancelar = statusUpper === "PENDIENTE" || statusUpper === "PENDING";
         
-        // Solo se puede cancelar si es PENDIENTE o EN PREPARACIÓN
-        const puedeCancelar = statusUpper === "PENDIENTE" || statusUpper === "PENDING" || statusUpper === "EN PREPARACIÓN" || statusUpper === "EN PREPARACION";
-        
-        // Calculamos total seguro
         const totalDisplay = calcularTotalSeguro(pedido);
 
         return (
           <div className="pedido-card" key={pedido.id}>
-            {/* Header de la tarjeta */}
             <div className="pedido-header">
               <h2>Pedido #{pedido.id}</h2>
               <span className={`estado ${statusUpper.includes('ENTREGADO') ? 'entregado' : ''}`}>
@@ -156,31 +151,25 @@ const PedidosItems = () => {
               </span>
             </div>
 
-            {/* Dirección */}
             <div className="pedido-info">
               <p><strong>Dirección:</strong> {pedido.address}</p>
             </div>
 
-            {/* Lista de productos */}
             <div className="pedido-productos">
               <h3>Detalle:</h3>
               <ul>
                 {pedido.orderDetails && pedido.orderDetails.map((detalle, i) => {
                   
-                  // LOGICA DE RESCATE DE DATOS (HYBRID)
                   let nombreProducto = "Producto cargando...";
                   let precioUnitario = 0;
                   let imagen = "";
 
-                  // 1. Intentar leer del objeto anidado (si el backend lo manda)
                   if (detalle.product) {
                     nombreProducto = detalle.product.name;
                     precioUnitario = parseFloat(detalle.product.price);
                     imagen = detalle.product.image;
-                  } 
-                  // 2. Intentar buscar en el contexto global
-                  else {
-                    const found = all_products.find(p => p.id === detalle.productId);
+                  } else {
+                    const found = all_products.find(p => p.id == detalle.productId);
                     if (found) {
                         nombreProducto = found.name;
                         precioUnitario = parseFloat(found.price);
@@ -203,7 +192,6 @@ const PedidosItems = () => {
                       )}
                       <div className="pedido-item-txt">
                           <strong>{detalle.quantity} x {nombreProducto}</strong>
-                          {/* Mostrar precio solo si tenemos datos válidos */}
                           {precioUnitario > 0 && (
                              <span className="pedido-item-price"> — ${subtotalItem.toFixed(2)}</span>
                           )}
@@ -214,7 +202,6 @@ const PedidosItems = () => {
               </ul>
             </div>
             
-            {/* Footer con Total y Botón */}
             <div className="pedido-footer">
               <h3>Total: ${totalDisplay.toFixed(2)}</h3>
               
