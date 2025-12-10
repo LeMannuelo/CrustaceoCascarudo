@@ -1,5 +1,5 @@
 import React, { useContext, useEffect, useState } from 'react';
-import './CSS/MenuCategory.css'; // Asegúrate de que esta carpeta CSS exista dentro de Pages
+import './CSS/MenuCategory.css'; 
 import { ShopContext } from '../Context/ShopContext';
 import Item from '../Components/Item/Item';
 import { useSearchParams, useNavigate } from 'react-router-dom';
@@ -48,7 +48,6 @@ const MenuCategory = () => {
 
       <div className="menucategory-products">
         {filteredProducts.map((item) => {
-           // Corrección de la ruta de imagen si viene del backend
            const imagePath = item.image.startsWith('./') 
               ? item.image.replace('./', '/images/') 
               : item.image; 
@@ -59,8 +58,8 @@ const MenuCategory = () => {
               id={item.id}
               name={item.name}
               image={imagePath}
-              price={item.price}     // <--- OJO: backend usa 'price', no 'new_price'
-              category={item.category} // <--- Necesario para que el link funcione
+              price={item.price}   
+              category={item.category} 
             />
           );
         })}

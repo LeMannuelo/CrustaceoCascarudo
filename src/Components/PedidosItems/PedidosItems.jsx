@@ -2,7 +2,6 @@ import React, { useContext, useEffect, useState } from "react";
 import "./PedidosItems.css";
 import { ShopContext } from "../../Context/ShopContext";
 
-// Ajusta el puerto si tu backend corre en otro (ej: 8080 o 3000)
 const API_URL = "http://localhost:8080";
 
 const PedidosItems = () => {
@@ -10,7 +9,6 @@ const PedidosItems = () => {
   const [pedidos, setPedidos] = useState([]);
   const [loading, setLoading] = useState(true);
 
-  // 1. Fetch de las órdenes
   useEffect(() => {
     const fetchOrders = async () => {
       const token = localStorage.getItem("token");
@@ -20,7 +18,6 @@ const PedidosItems = () => {
       }
 
       try {
-        // Usamos el endpoint para obtener pedidos (puede ser /order o /order/active según tu preferencia)
         const response = await fetch(`${API_URL}/order`, { 
           method: "GET",
           headers: {
@@ -31,7 +28,6 @@ const PedidosItems = () => {
 
         if (response.ok) {
           const data = await response.json();
-          // Ordenar: pedidos más nuevos primero
           const pedidosOrdenados = Array.isArray(data) 
             ? data.sort((a, b) => b.id - a.id) 
             : [data];
@@ -49,14 +45,12 @@ const PedidosItems = () => {
     fetchOrders();
   }, []);
 
-  // 2. Función para Cancelar Pedido (CORREGIDA)
   const handleCancelOrder = async (orderId) => {
     if (!window.confirm("¿Seguro que quieres cancelar este pedido?")) return;
 
     try {
       const token = localStorage.getItem("token");
       
-      // CAMBIO CLAVE: Usamos PUT y la ruta /cancel/{id} definida en tu OrderController
       const response = await fetch(`${API_URL}/order/cancel/${orderId}`, {
         method: "PUT", 
         headers: {
@@ -67,10 +61,8 @@ const PedidosItems = () => {
 
       if (response.ok) {
         alert("Pedido cancelado exitosamente.");
-        // Lo removemos de la lista visualmente ya que se canceló
         setPedidos(prev => prev.filter(p => p.id !== orderId));
       } else {
-        // Si falla, mostramos el estado para depurar
         console.error("Error del servidor:", response.status);
         alert("No se pudo cancelar. Verifica si el pedido ya está en camino.");
       }
@@ -80,7 +72,6 @@ const PedidosItems = () => {
     }
   };
 
-  // Helper para mostrar estado bonito
   const getStatusLabel = (statusRaw) => {
     const s = statusRaw ? statusRaw.toUpperCase() : 'PENDIENTE';
     
@@ -92,15 +83,12 @@ const PedidosItems = () => {
     return '🕒 Pendiente'; 
   };
 
-  // Helper ROBUSTO para calcular el total
   const calcularTotalSeguro = (pedido) => {
-    // 1. Si el backend ya trae el total calculado
     if (pedido.total !== undefined && pedido.total !== null) {
         const val = parseFloat(pedido.total);
         if (!isNaN(val) && val > 0) return val;
     }
 
-    // 2. Si no, calcular sumando items
     if (!pedido.orderDetails || !Array.isArray(pedido.orderDetails)) return 0;
     
     return pedido.orderDetails.reduce((acc, detalle) => {
@@ -111,7 +99,7 @@ const PedidosItems = () => {
         } else if (detalle.product && detalle.product.price) {
             precio = parseFloat(detalle.product.price);
         } else if (all_products.length > 0) {
-            const prod = all_products.find(p => p.id == detalle.productId); // Doble igual para coincidencia flexible (string/number)
+            const prod = all_products.find(p => p.id == detalle.productId); 
             if (prod) precio = parseFloat(prod.price);
         }
 
@@ -137,7 +125,6 @@ const PedidosItems = () => {
       {pedidos.map((pedido) => {
         
         const statusUpper = (pedido.status || "PENDIENTE").toUpperCase();
-        // Solo permitimos cancelar si está PENDIENTE
         const puedeCancelar = statusUpper === "PENDIENTE" || statusUpper === "PENDING";
         
         const totalDisplay = calcularTotalSeguro(pedido);

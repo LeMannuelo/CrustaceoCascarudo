@@ -35,7 +35,6 @@ const SobreNosotros = () => {
         </div>
       </div>
 
-      {/* Segunda fila: imagen + texto */}
       <div className="nosotros-fila invertida">
         <div className="nosotros-imagen">
           <img src={mapa} alt="El Crustáceo Cascarudo" />

@@ -12,11 +12,7 @@ const Login = () => {
   const [repeatPassword, setRepeatPassword] = useState("");
   const [errorMsg, setErrorMsg] = useState("");
   const [loading, setLoading] = useState(false);
-  
-  // Nuevo estado para el checkbox de términos
   const [agreed, setAgreed] = useState(false);
-
-  // Estados para mostrar/ocultar contraseñas
   const [showPassword, setShowPassword] = useState(false);
   const [showRepeatPassword, setShowRepeatPassword] = useState(false);
 
@@ -29,25 +25,21 @@ const Login = () => {
   const cumpleTodo = reglas.largo && reglas.mayus && reglas.numero;
 
   const handleRegister = async () => {
-    // 1. Validar campos vacíos
     if (!name || !email || !password || !repeatPassword) {
       setErrorMsg("Todos los campos son obligatorios");
       return;
     }
 
-    // 2. Validar que se hayan aceptado los términos
     if (!agreed) {
       setErrorMsg("Debes aceptar los términos y condiciones para continuar");
       return;
     }
 
-    // 3. Validar reglas de contraseña
     if (!cumpleTodo) {
       setErrorMsg("La contraseña no cumple los requisitos");
       return;
     }
 
-    // 4. Validar coincidencia de contraseñas
     if (password !== repeatPassword) {
       setErrorMsg("Las contraseñas no coinciden");
       return;
@@ -87,7 +79,6 @@ const Login = () => {
     setLoading(false);
   };
 
-  // Icono de Ojo (SVG)
   const EyeIcon = () => (
     <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
       <path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z"></path>
@@ -95,7 +86,6 @@ const Login = () => {
     </svg>
   );
 
-  // Icono de Ojo Tachado (SVG)
   const EyeOffIcon = () => (
     <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
       <path d="M17.94 17.94A10.07 10.07 0 0 1 12 20c-7 0-11-8-11-8a18.45 18.45 0 0 1 5.06-5.94M9.9 4.24A9.12 9.12 0 0 1 12 4c7 0 11 8 11 8a18.5 18.5 0 0 1-2.16 3.19m-6.72-1.07a3 3 0 1 1-4.24-4.24"></path>
@@ -124,10 +114,9 @@ const Login = () => {
             onChange={(e) => setEmail(e.target.value)}
           />
 
-          {/* Wrapper para Contraseña */}
           <div className="password-wrapper">
             <input 
-              type={showPassword ? "text" : "password"} // Cambio dinámico de tipo
+              type={showPassword ? "text" : "password"} 
               placeholder="Contraseña"
               value={password}
               onChange={(e) => setPassword(e.target.value)}
@@ -140,7 +129,6 @@ const Login = () => {
             </span>
           </div>
 
-          {/* Reglas dinámicas */}
           <div className="password-rules">
             <p className={reglas.largo ? "ok" : ""}>
               {reglas.largo ? "✔" : "-"} Mínimo 8 caracteres
@@ -153,7 +141,6 @@ const Login = () => {
             </p>
           </div>
 
-          {/* Wrapper para Repetir Contraseña */}
           <div className="password-wrapper">
             <input 
               type={showRepeatPassword ? "text" : "password"}

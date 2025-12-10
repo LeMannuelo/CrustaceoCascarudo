@@ -3,7 +3,6 @@ import { Link } from 'react-router-dom';
 import './Item.css';
 
 const Item = (props) => {
-  // Si recibimos un 'customLink', usamos ese. Si no, usamos la ruta de producto normal.
   const linkTo = props.customLink ? props.customLink : `/product/${props.id}`;
 
   return (
@@ -15,7 +14,6 @@ const Item = (props) => {
       <div className="item-details">
         <p>{props.name}</p>
         <div className="item-prices">
-          {/* Mostramos la propiedad price */}
           <div className='item-price-new'>${props.price}</div>
         </div>
       </div>

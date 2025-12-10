@@ -9,9 +9,6 @@ const ProductDisplay = ({ product }) => {
     const { addToCart } = useContext(ShopContext);
     const [showAuthModal, setShowAuthModal] = useState(false);
 
-    // GUARDIA DE SEGURIDAD:
-    // Si entras directo a un link de producto, el fetch puede tardar 0.5 seg.
-    // Si product es undefined, mostramos "Cargando..." o retornamos null para evitar crash.
     if (!product) {
         return <div className="loading">Cargando delicias del mar...</div>;
     }
@@ -30,7 +27,6 @@ const ProductDisplay = ({ product }) => {
     return (
         <div className="productdisplay">
             <div className="productdisplay-left">
-                {/* Las imágenes ahora son rutas string, funcionan directo en src */}
                 <img
                     className="productdisplay-main-img"
                     src={product.image} 
@@ -41,7 +37,6 @@ const ProductDisplay = ({ product }) => {
             <div className="productdisplay-right">
                 <h1>{product.name}</h1>
                 
-                {/* Estrellas estáticas (puedes dejarlas así por ahora) */}
                 <div className="productdisplay-stars">
                     <img src={star_icon} alt="" />
                     <img src={star_icon} alt="" />
@@ -53,11 +48,9 @@ const ProductDisplay = ({ product }) => {
 
                 <div className="productdisplay-price">
                     <span className="price-label">Precio:</span>
-                    {/* Aquí ya usabas .price, así que está PERFECTO */}
                     <span className="price-value">${product.price}</span>
                 </div>
                 
-                {/* Resto del código igual... */}
                 <div className="productdisplay-description">
                     <p>{product.description}</p>
                 </div>
