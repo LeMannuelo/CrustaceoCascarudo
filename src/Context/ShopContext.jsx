@@ -5,7 +5,6 @@ export const ShopContext = createContext(null);
 const ShopContextProvider = (props) => {
   const [all_products, setAllProducts] = useState([]);
   
-  // --- 1. GESTIÓN DEL CARRITO ---
   const [cartItems, setCartItems] = useState(() => {
     const savedCart = localStorage.getItem("cartItems");
     return savedCart ? JSON.parse(savedCart) : {};
@@ -15,8 +14,6 @@ const ShopContextProvider = (props) => {
     localStorage.setItem("cartItems", JSON.stringify(cartItems));
   }, [cartItems]);
 
-  // --- 2. GESTIÓN DE USUARIO (RESTAURADO) ---
-  // Esto es vital para que la Navbar se actualice sola al loguearte/desloguearte
   const [user, setUser] = useState(() => {
     const savedUser = localStorage.getItem("usuario");
     return savedUser ? JSON.parse(savedUser) : null;
@@ -35,19 +32,15 @@ const ShopContextProvider = (props) => {
     setCartItems({});
   };
 
-  // --- 3. FETCH DE PRODUCTOS (CORREGIDO) ---
   useEffect(() => {
     const fetchProducts = async () => {
       try {
         const token = localStorage.getItem("token");
         
-        // Preparamos los headers
         const headers = {
           "Content-Type": "application/json",
         };
 
-        // CORRECCIÓN CLAVE: Solo enviamos el token si realmente existe.
-        // Enviar "Bearer null" hace que el backend bloquee la petición.
         if (token && token !== "null" && token !== "undefined") {
           headers["Authorization"] = `Bearer ${token}`;
         }
@@ -71,7 +64,7 @@ const ShopContextProvider = (props) => {
     fetchProducts();
   }, []);
 
-  // --- 4. FUNCIONES DEL CARRITO ---
+
   const addToCart = (itemId) => {
     setCartItems((prev) => ({ 
       ...prev, 
@@ -123,7 +116,6 @@ const ShopContextProvider = (props) => {
     addToCart,
     removeFromCart,
     clearCart,
-    // Agregamos de nuevo las funciones de usuario al contexto
     user,
     login,
     logout

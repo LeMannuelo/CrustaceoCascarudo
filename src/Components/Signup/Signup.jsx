@@ -66,7 +66,7 @@ const Login = () => {
       const data = await res.json();
 
       if (!res.ok) {
-              if (data.validationErrors && data.validationErrors.name === "La formula no te pertenece") {
+              if (data.validationErrors && data.validationErrors.name === "La fórmula no te pertenece") {
                   setErrorMsg("¿Eres tú, Plankton?");
                   alert("¡ALERTA DE INTRUSO!");
               } else {
